@@ -1,0 +1,130 @@
+# Development
+
+The documentation produced by this project is written in [LaTeX](https://www.latex-project.org/) 
+with [TeXworks](https://tug.org/texworks/) using
+- [PlantUml](https://plantuml.com/)
+- [Graphviz dot](https://graphviz.org/documentation/)
+
+## Environment setup
+
+If you want to compile *nexxtender-charger-information* LaTeX files into
+a pdf document, you must install MikTex, PlantUml and Graphviz.
+Follow these steps:
+
+1. Install the 64-bit version of [Git](https://git-scm.com/downloads/win).
+2. Install Graphviz according to 
+   [Graphviz download](https://graphviz.org/download/)
+3. Install PlantUML according to 
+   [Quick Start Guide to PlantUML](https://plantuml.com/starting).
+   Set the environment variable PLANTUML_HOME to the directory in which PlantUml 
+   was installed.
+   PlantUML requires the installation of GraphViz and Java.
+   
+   For native PDF support, 
+   ensure that the required libraries (Batik and FOP) are in the same directory 
+   as your plantuml.jar.
+   Download https://www.apache.org/dyn/closer.cgi?filename=/xmlgraphics/batik/binaries/batik-bin-1.19.zip&action=download or more recent.
+   Copy the following files (or more recent) from the zip into the $PLANTUML_HOME directory:
+   - batik-all-1.9.jar
+   - fop-transcoder-allinone-2.2.jar
+   - xml-apis-1.3.04.jar
+   - xml-apis-ext-1.3.04.jar
+   - xmlgraphics-commons-2.2.jar
+4. [Clone GitHub nexxtender-charger-information project](https://www.wikihow.com/Clone-a-Repository-on-Github#Using-the-Git-GUI).
+   The required URL can be found by clicking on the ![Green Code>](docs/images/GreenCode.png)
+   button at the top of this page.
+   You might need a GitHub login to be able to clone a repo.
+   If you plan on contributing to *nexxtender-charger-information*,
+   you better first fork the repo in GitHub and use the URL of your fork in
+   your local Git environment.
+   Under *Directory* choose a directory where you want the project to be stored.
+   Press the *Clone* button.
+
+## Versioning
+
+The *nexxtender-charger-information* project uses [Semantic Versioning]( https://semver.org/).
+A version number has the format x.y.z, possibly with some extensions.
+x, y and z are incremented as follows:
+
+- x (MAJOR) version when incompatible API changes are made
+- y (MINOR) version when functionality is added in a backward compatible manner
+- z (PATCH) version when backward compatible bug fixes are made
+
+Not every commit is given its own version number.
+Only commits that correspond with released versions are given their own version number.
+All other commits are candidates for the next release.
+As soon as a commit is officially released for the x.y.z release, the following steps are taken:
+
+1. A number x'.y'.z' for the next release is decided on, based on the [Semantic Versioning]( https://semver.org/) rules.
+2. The commit chosen for the official release of x.y.z is marked with the tag *v*x.y.z, possibly with an extension.
+   Some of the extensions that can be used are `-experimental`, `-alpha`, `-beta`, etc...
+   See [Software release life cycle](https://en.wikipedia.org/wiki/Software_release_life_cycle).
+3. A release is created in GitHub with the PDF files of the commit tagged with *v*x.y.z.
+4. The next commit is marked with the tag x'.y'.z', marking it as the first candidate for release *v*x'.y'.z'.
+5. The nexxtender.tex LaTeX compilation generates a unique version number
+      for each commit using [git describe](https://git-scm.com/docs/git-describe).
+   The result for a commit equal or after the last x.y.z tag is:
+   `<x.y.z>-<c>-g<1234567>[-<branch name>][-dirty]`
+   with
+    - `<x.y.z>`: The most recent tag of the form x.y.z.
+    - `<c>`: the number of commits after the tag. Absent if 0.
+    - `<1234567>`: the first 7 digits of the git commit hash.
+    - `<branch name>`: name of the branch if different from *master*.
+    - `-dirty`: is added if the workspace still contains local modifications (i.e. uncommitted files).
+
+## Git commits
+
+The *nexxtender-charger-information* project uses the 
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specifications
+for writing commit messages.
+
+## Testing
+
+Testing consists of verifying
+- that the LaTeX compilation gives no errors.
+- visual inspection of the content of the produced PDF file:
+    - Is the layout OK?
+    - Are all links resolved?
+    - Is the table of contents and the list of figures and tables present?
+    - Are all diagrams present (dot, puml, others?)
+  
+## Make a release
+
+Once a commit on the master branch is selected to make a new release in GutHub, proceed as follows:
+
+1. Perform the testing from [Testing](#testing) and verify that they are successful.
+2. Compile the document in a PDF using `build.sh`.
+   This will generate `C:\Nexxtender\nexxtender-charger-info\output\nexxtender.pdf`.
+   It is the pdf to be used for the release.
+   Alternatively use the one from the latest build artifact generated by the [Build PDF.yaml](#build_pdf.yaml) action.  
+   The name of the PDF file includes the version number of the release candidate,
+   based on the most recent tag of the form x.y.z.
+   See [Versioning](#versioning).
+   The name of the version to release will then be vx.y.z.
+6. Push the master branch to GitHub.
+7. Create a new release in GitHub
+    - In the *Code* screen, under *Releases*,
+      select [Create a new release](https://github.com/FrankHJCuypers/nexxtender-charger-information/new).
+    - Choose a *Tag*: create a new tag to be applied on the most recent commit, starting with a 'v': vx.y.z.
+      For a version 0.0.2 that becomes v0.0.2.
+      Add an extension like `-alpha` if needed.
+    - Choose a *Target*: master
+    - Choose a *Previous Tag*: choose the tag of the previous release.
+      This is used to generate a changelog.
+    - Press *Generate release notes* and accept the full change log that is proposed.
+      Use it as the first line of the description of the release.
+      Add some more detail for relevant commits;
+      see [release v0.1.0-beta](https://github.com/FrankHJCuypers/nexxtender-charger-information/releases/tag/v0.1.0-beta) as an example.
+    - Choose a *Release Title*: "Release \<tagname\>" with \<tagname\> the chosen tag.
+    - Select *Set as latest release*
+    - Select *Create a discussion for this release*.
+    - Drag the nexxtender*.pdf file from the `output` subdirectory to the new release.
+    - Press *Publish release*.
+    - Fetch the master branch from GitHub in order to import the new tags.
+    - Decide on the next release number x'.y'.z'.
+      Apply a tag with that name on the next commit on the master branch.
+
+## GitHub actions
+
+The following GitHub actions are defined:
+- TBD

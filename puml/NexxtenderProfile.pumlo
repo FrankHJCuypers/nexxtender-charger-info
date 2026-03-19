@@ -1,0 +1,41 @@
+@startsalt
+{
+{T
+ + Nexxtender profile
+ ++ <color:#9a9a9a>**Generic Access** //service//
+ +++ <color:#9a9a9a>**Device Name** //characteristic//
+ +++ <color:#9a9a9a>**Appearance** //characteristic//
+ +++ <color:#9a9a9a>**Peripheral Preferred Connection** //characteristic//
+ ++ <color:#9a9a9a>**Generic Attribute** //service//
+ +++ <color:#9a9a9a>**Service Changed** //characteristic//
+ ++ <color:#9a9a9a>**Device Information** //service//
+ +++ <color:#9a9a9a>**Model Number String** //characteristic//
+ +++ <color:#9a9a9a>**Serial Number String** //characteristic//
+ +++ <color:#9a9a9a>**Firmware Revision String** //characteristic//
+ +++ <color:#9a9a9a>**Hardware Revision String** //characteristic//
+ ++ **Advertisement** //service//
+ ++ **Generic** //service//
+ +++ **Generic Command** //characteristic//
+ +++ **Generic Status** //characteristic//
+ +++ **Generic Data** //characteristic//
+ ++ **CDR** //service//
+ +++ **CDR Command** //characteristic//
+ +++ **CDR Status** //characteristic//
+ +++ **CDR Data** //characteristic//
+ ++ **CCDT** //service//
+ +++ **CCDT Command** //characteristic//
+ +++ **CCDT Status** //characteristic//
+ +++ **CCDT Record** //characteristic//
+ ++ **Firmware** //service//
+ +++ **Firmware Command** //characteristic//
+ +++ **Firmware Status** //characteristic//
+ +++ **Firmware Wanted Chunck** //characteristic//
+ +++ **Firmware Data Chunck** //characteristic//
+ ++ **Charging** //service//
+ +++ **Charging Basic Data** //characteristic//
+ +++ **Charging Grid Data** //characteristic//
+ +++ **Charging Car Data** //characteristic//
+ +++ **Charging Advanced Data** //characteristic//
+}
+}
+@endsalt

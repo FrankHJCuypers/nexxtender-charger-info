@@ -1,0 +1,55 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xCA)" as Command
+participant "Status (0xCB)" as Status
+participant "Wanted Chunk(0xCD)" as WantedChunk
+participant "Data Chunk(0xCE)" as DataChunk
+end box
+autonumber
+
+== Initiation ==
+
+GSM -> Status: Enable notifications
+GSM -> Status: Read 
+autonumber stop
+return status, errorCode
+autonumber resume
+
+loop (status != IDLE) or (errorCode != 0)
+  GSM -> Command: Write [Firmware:STOP(0x03)]
+  ...wait until the charger returns its **Firmware Status**...
+  GSM <<- Status: Notify (status, errorCode)
+end
+
+== Body ==
+
+GSM -> Command: Write ([Firmware:START(0x02)], dataLength)
+
+loop
+  ...wait until the charger returns its **Firmware Status**...
+  GSM <<- Status: Notify (status, errorCode)
+  alt (status == Firmware:NEXT) and (errorCode == 0)
+    GSM -> WantedChunk: Read 
+    autonumber stop
+    return chunkNumber
+    autonumber resume
+    GSM -> DataChunk: Write chunk
+  else  (status == Firmware:FINISH) and (errorCode == 0)
+    break 
+      GSM -> Command:  Write [Firmware:RESET(0x04)]
+    end
+  else
+      GSM -> GSM:  Error
+  end
+end
+== Finish ==
+GSM -> Status: Disable notifications
+@enduml

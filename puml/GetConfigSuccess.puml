@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+
+autonumber
+GSM -> Command: Write [Config:Config Get(0x5002)]
+autonumber stop
+return error code
+...Wait until the data is ready...
+autonumber resume
+GSM <<- Status: Notify [Config:POPPED(0x5003)]
+GSM -> Data: Read Config_1_0 or Config_1_1 data
+autonumber stop
+return Config_1_0 or Config_1_1 data
+
+@enduml

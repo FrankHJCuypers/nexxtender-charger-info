@@ -1,0 +1,53 @@
+@startuml
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/bolt>  
+!include <tupadr3/font-awesome/home>
+!include <tupadr3/font-awesome/car>
+!include <tupadr3/font-awesome/credit_card>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/chrome>
+!include <tupadr3/font-awesome-5/solar_panel>
+!include <tupadr3/font-awesome-5/charging_station>
+!include <tupadr3/font-awesome-5/bluetooth>
+!include <tupadr3/font-awesome-5/wifi>
+!include <tupadr3/font-awesome-6/computer>
+!include <tupadr3/font-awesome-6/microchip>
+!include <tupadr3/material/nfc>
+
+rectangle Power {
+  FA_BOLT(PowerGrid, "Power Grid")
+  FA5_SOLAR_PANEL(SolarPanels, "Solar Panels")
+  FA_HOME(House, House)
+  FA5_CHARGING_STATION(NexxtenderHome, "Nexxtender Home Charger")
+  FA_CAR(EV, EV)
+  card "Fuse box" as FuseBox
+  PowerGrid<-->FuseBox: P<sub>Grid</sub>
+  FuseBox-->House: P<sub>House</sub>
+  SolarPanels-->FuseBox: P<sub>Solar</sub>
+  FuseBox-->NexxtenderHome:P<sub>Charger</sub>
+  NexxtenderHome-->EV:P<sub>EV</sub>
+  PowerGrid~~>NexxtenderHome: CT
+}
+
+rectangle Control {
+  FA_CREDIT_CARD(Badge, Badge)
+  FA6_MICROCHIP(ESP32,"ESP32")
+  card HA as "Home Assistant" {
+    card ESPHome as "ESPHome add-on"
+  }
+  FA_MOBILE(App, "Home Assistant app")
+  FA6_COMPUTER(Browser, "Browser")
+}
+
+NexxtenderHome<~~>Badge:<$nfc>RF
+NexxtenderHome<~~>ESP32 :<$bluetooth>BLE
+ESP32<~~>ESPHome: <$wifi>WiFi
+HA<~~d~~>App : <$globe>Internet
+HA<~~d~~>Browser : <$globe>Internet
+
+'Force better placing with invisible link
+EV-[hidden]-ESP32
+EV-[hidden]-Badge
+
+@enduml

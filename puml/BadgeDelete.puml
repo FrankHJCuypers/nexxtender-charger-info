@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+autonumber
+GSM -> Command: Write [Badge:Delete Badge (0x3004)]
+autonumber stop
+return error code
+...Wait until the charger is ready to delete a badge...
+autonumber resume
+GSM <<- Status: Notify [Badge:WAIT_DELETE(0x3004)]
+GSM -> Data: Write the UID 
+GSM <<[#red]- Status: Notify [Badge:FINISH(0x3007)]
+autonumber stop
+@enduml

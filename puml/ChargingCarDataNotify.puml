@@ -1,0 +1,25 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nCharging Service Server" 
+participant "Basic Data(0xCF)" as BasicData
+participant "Grid Data(0xD0)" as GridData
+participant "Car Data(0xDA)" as CarData
+participant "Advanced Data(0xDB)" as AdvancedData
+end box
+...Wait until the charger updates some data...
+autonumber
+GSM <<- CarData: Notify data value
+autonumber stop
+...Wait until the charger updates some data...
+autonumber resume
+GSM <<- CarData: Notify data value
+autonumber stop
+...Wait until the charger updates some data...
+@enduml

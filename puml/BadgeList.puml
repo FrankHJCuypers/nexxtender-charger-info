@@ -1,0 +1,36 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+autonumber
+GSM -> Command: Write *[Badge:Badge list start (0x3005)]
+autonumber stop
+return error code
+...Wait until the charger returns its badge listing state...
+autonumber resume
+GSM <<- Status: Notify [status]
+loop status == Badge:NEXT(0x3005)
+   GSM -> Data: Read the UID
+   autonumber stop
+   return UID
+   autonumber resume
+   GSM -> Command: Write [Badge:Badge list next (0x3006)]
+   ...Wait until the charger returns its badge listing state...
+   GSM <<- Status: Notify [status]
+end
+alt status == Badge:FINISH(0x3007)
+   GSM -> GSM: successful completion
+else status == anything else
+   GSM -> GSM: handle error
+end
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+autonumber
+GSM -> Command: Write [Operation]
+autonumber stop
+return error code
+...Wait until the operation is completed...
+autonumber resume
+GSM <<- Status: Notify [status]
+
+@enduml

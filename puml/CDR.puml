@@ -1,0 +1,36 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nCDR Service Server" 
+participant "Command (0xC2)" as Command
+participant "Status (0xC3)" as Status
+participant "Record (0xC4)" as Record
+end box
+autonumber
+== Initiation ==
+GSM ->  Status: Enable notifications
+GSM -> Status: Read data
+autonumber stop
+return //nnnnnnnn--//
+  autonumber resume
+== Body ==
+loop until //nnnnnnnn// == 0 
+  GSM -> Record: Read data
+  autonumber stop
+  return data
+  autonumber resume
+  GSM -> Command: Write [0x01]
+  autonumber stop
+  return error code
+  autonumber resume
+  GSM <<- Status: Notify [//nnnnnnnn--//]
+end
+== Finish ==
+GSM ->  Status: Disable notifications
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+autonumber
+== Initiation ==
+GSM ->  Status: Enable notifications
+GSM -> Command: Write [Event:UPDATE_STATUS(0x1002)]
+autonumber stop
+return error code
+autonumber resume
+GSM <<- Status: Notify [Event://nn//~-- (0x10//nn//--)]
+== Body ==
+loop until //nn// == 0 
+  GSM -> Data: Read data
+  autonumber stop
+  return data
+  autonumber resume
+  GSM -> Command: Write [Event:NEXT(0x1001)]
+  autonumber stop
+  return error code
+  autonumber resume
+  GSM <<- Status: Notify [Event://nn//~-- (0x10//nn//--)]
+end
+== Finish ==
+GSM ->  Status: Disable notifications
+@enduml

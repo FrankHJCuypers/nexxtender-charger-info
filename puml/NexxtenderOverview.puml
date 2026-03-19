@@ -1,0 +1,40 @@
+@startuml
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/bolt>
+!include <tupadr3/font-awesome/home>
+!include <tupadr3/font-awesome/car>
+!include <tupadr3/font-awesome/credit_card>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/globe>
+!include <tupadr3/font-awesome-5/chrome>
+!include <tupadr3/font-awesome-5/solar_panel>
+!include <tupadr3/font-awesome-5/charging_station>
+!include <tupadr3/font-awesome-5/bluetooth>
+!include <tupadr3/material/nfc>
+
+rectangle Power {
+  FA_BOLT(PowerGrid, "Power Grid")
+  FA5_SOLAR_PANEL(SolarPanels, "Solar Panels")
+  FA_HOME(House, House)
+  FA5_CHARGING_STATION(NexxtenderHome, "Nexxtender Charger")
+  FA_CAR(EV, EV)
+  card "Fuse box" as FuseBox
+  PowerGrid<-->FuseBox: P<sub>Grid</sub>
+  FuseBox-->House: P<sub>House</sub>
+  SolarPanels-->FuseBox: P<sub>Solar</sub>
+  FuseBox-->NexxtenderHome:P<sub>Charger</sub>
+  NexxtenderHome-->EV:P<sub>EV</sub>
+  PowerGrid~~>NexxtenderHome: CT
+}
+rectangle Control {
+  FA_CREDIT_CARD(Badge, Badge)
+  FA_MOBILE(NexxtmoveApp, "Nexxtmove app")
+  FA5_CHROME(Nexxtmove, "www.Nexxtmove.me")
+}
+NexxtmoveApp<~~>Nexxtmove: <$globe>Internet
+NexxtenderHome<~~>Badge:<$nfc>RF
+NexxtenderHome<~~>NexxtmoveApp:<$bluetooth>BLE
+'Force better placing with invisible link
+EV-[hidden]-NexxtmoveApp
+EV-[hidden]-Badge
+@enduml

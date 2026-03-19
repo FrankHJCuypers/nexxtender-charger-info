@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultTextAlignment center
+skinparam sequenceMessageAlign left
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/mobile>
+!include <tupadr3/font-awesome-5/charging_station>
+
+participant "<$mobile>\nClient" as GSM
+box "<$charging_station>\nGeneric Service Server" 
+participant "Command (0xDD)" as Command
+participant "Status (0xDE)" as Status
+participant "Data (0xDF)" as Data
+end box
+autonumber
+GSM -> Command: Write [Time:Time Set (0x4001)]
+autonumber stop
+return error code
+...Wait until the charger is ready to set the time...
+autonumber resume
+GSM <<- Status: Notify [Time:READY(0x4001)]
+GSM -> Data: Write the time
+autonumber stop
+return error code
+...Wait for data to be written...
+autonumber resume "<font color=red>"
+GSM <<[#red]- Status: <font color=red>Notify [Time:SUCCESS(0x4002)]
+@enduml
