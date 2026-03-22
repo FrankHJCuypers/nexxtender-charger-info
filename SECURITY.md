@@ -10,4 +10,4 @@ Only the latest *nexxtender-charger-information* version in GitHub will receive 
   chance to fix it**
 - :x: Please DO NOT report security vulnerabilities using GitHub issues
 - :white_check_mark: instead create a *new draft Security Advisory* on
-  the [Security Advisories](https://github.com/FrankHJCuypers/*nexxtender-charger-information*/security/advisories) page
+  the [Security Advisories](https://github.com/FrankHJCuypers/nexxtender-charger-info/security/advisories) page
