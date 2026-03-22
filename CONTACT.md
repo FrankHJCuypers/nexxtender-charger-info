@@ -1,6 +1,6 @@
 # Contact
 
-For questions regarding project nexxtender-charger-information*,1
+For questions regarding project *nexxtender-charger-information*,1
 or its privacy policy, 
 please contact us using one of the following alternatives:
 
