@@ -7,6 +7,6 @@ cd puml
 
 cd ../dot
 ./DotToPdf.sh
-
+gitdescribe=`git describe --tags --always --dirty --match [[:digit:]].[[:digit:]].[[:digit:]]`
 cd ..
-latexmk -pdf -shell-escape -outdir=output nexxtender.tex
+latexmk -pdf -jobname=%A$gitdescribe -shell-escape -outdir=output nexxtender.tex
