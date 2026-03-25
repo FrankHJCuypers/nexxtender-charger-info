@@ -23,6 +23,9 @@
 *.pdf
 *.lua
 *.in
+*.fls
+*.fdb_latexmk
 *.synctex.gz
 intermediate/
 output/
+.plantuml/

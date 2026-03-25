@@ -2,7 +2,7 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \documentclass[a4paper]{article}
-\usepackage{authoraftertitle}
+%\usepackage{authoraftertitle}
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
@@ -80,24 +80,29 @@
 \usepackage{float}
 %\usepackage{verbatim}
 \newcommand{\secref}[1]{\ref{#1} \nameref{#1}}
-\newcommand{\gitdescribe}{\input|"git describe --tags --always --dirty --match [[:digit:]].[[:digit:]].[[:digit:]]"}
+%\newcommand{\gitdescribe}{\input|"git describe --tags --always --dirty --match [[:digit:]].[[:digit:]].[[:digit:]]"}
 
 % Avoid to have to use the percentage sign as format specifier for git commands
-\makeatletter
-    \edef\gitdate{\@@input|"git show -s --format=\@percentchar cs"}
-\makeatother
+% \makeatletter
+    % \edef\gitdate{\@@input|"git show -s --format=\@percentchar cs"}
+% \makeatother
+\input{gitinfo}
 
-\title{Nexxtender Charger Information}
-\author{Frank HJ Cuypers}
-\date{\today}
+
+\edef\NexxtenderTitle{Nexxtender Charger Information}
+\edef\NexxtenderAuthor{Frank HJ Cuypers}
+
+\title{\NexxtenderTitle}
+\author{\NexxtenderAuthor}
+\date{\gitdate}
 
 %
 \begin{document}
 %\maketitle 
 \begin{center}
 \vspace*{2cm}
-\LARGE\textbf{\MyTitle} \\[0.8cm]
-\large \MyAuthor \\[0.6cm]
+\LARGE\textbf{\NexxtenderTitle} \\[0.8cm]
+\large \NexxtenderAuthor \\[0.6cm]
 Version \gitdescribe \\[0.4cm]
 \gitdate \\[0.8cm]
 \end{center}
@@ -121,7 +126,7 @@ Version \gitdescribe \\[0.4cm]
 	\item
 	      Section \secref{ecosystem_overview} gives an high level overview of the ecosystem.
 	\item
-	      Section \hyperref[ble_services_overview] details the BLE services provided by the Nexxtender
+	      Section \secref{ble_services_overview} details the BLE services provided by the Nexxtender
 	      Charger to the Nexxtmove app.
 \end{itemize}
 

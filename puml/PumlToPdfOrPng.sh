@@ -12,6 +12,8 @@
 # xml-apis-ext-1.3.04.jar
 # xmlgraphics-commons-2.2.jar
 
+mkdir -p ../intermediate
+
 # Only the puml files generate PDF output successfully
 java -cp $PLANTUML_HOME/"*" net.sourceforge.plantuml.Run -Sshadowing=false -tpdf -o"../intermediate" *.puml
 

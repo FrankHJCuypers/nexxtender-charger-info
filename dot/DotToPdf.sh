@@ -2,6 +2,7 @@
 # Processes al *.dot files
 # We generate pdf files.
 
+mkdir -p ../intermediate
 for f in *.dot
 do
 	if [ -f "$f" ]
