@@ -58,7 +58,7 @@ jobs:
         uses: prafdin/latexmk-action@master
 #        uses: yegor256/latexmk-action@0.18.2
         with:
-          opts: -pdf -shell-escape nexxtender.tex
+          opts: -pdf nexxtender.tex
           packages: xcolor booktabs multirow mdwtools float
       - name: Rename pdf
         run: |
