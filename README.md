@@ -2,7 +2,7 @@
 [![GitHub Discussions](https://img.shields.io/github/discussions/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/discussions)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/issues)
 
-[![latex](https://img.shields.io/badge/-LaTeX-008080?style=for-the-badge](https://www.latex-project.org/)
+[![latex](https://img.shields.io/badge/-LaTeX-008080?style=for-the-badge)](https://www.latex-project.org/)
 
 [![stable](https://img.shields.io/badge/version-stable-green)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)
 
