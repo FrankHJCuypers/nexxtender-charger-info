@@ -1,3 +1,20 @@
+[![maintainer](https://img.shields.io/badge/maintainer-Frank%20HJ%20Cuypers-green?style=for-the-badge&logo=github)](https://github.com/frankhjcuypers)
+[![GitHub Discussions](https://img.shields.io/github/discussions/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/discussions)
+[![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/issues)
+
+[![latex](https://img.shields.io/badge/-LaTeX-008080?style=for-the-badge](https://www.latex-project.org/)
+
+[![stable](https://img.shields.io/badge/version-stable-green)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)
+
+[![GitHub Release](https://img.shields.io/github/v/release/FrankHJCuypers/nexxtender-charger-info?include_prereleases&display_name=tag&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases)
+[![GitHub Release Date](https://img.shields.io/github/release-date-pre/FrankHJCuypers/nexxtender-charger-info?logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases)
+[![GitHub License](https://img.shields.io/github/license/FrankHJCuypers/nexxtender-charger-info?logo=github)](LICENSE)
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/FrankHJCuypers/nexxtender-charger-info?logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/commits)
+[![GitHub contributors](https://img.shields.io/github/contributors/FrankHJCuypers/nexxtender-charger-info?logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/graphs/contributors)
+[![GitHub commit activity (master)](https://img.shields.io/github/commit-activity/y/FrankHJCuypers/nexxtender-charger-info/master?logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/commits/master)
+
+
 # Nexxtender Charger Information
 
 The generated document is an effort to describe the Nexxtender ecosystem.
