@@ -94,10 +94,10 @@ It generates the pdf in the output sub directory.
 
 `./build.sh` runs the complete build.
   It performs the following actions:
-    1. Compiles the \*.dot files in the `dot` directory into pdf files in the `intermediate` sub directory. 
-    2. Compiles the \*.puml files in the `puml` directory into pdf files in the `intermediate` sub directory. 
-    3. Compiles the \*.pumlo files in the `puml` directory into png files in the `intermediate` sub directory.
-    4. Compiles the `nexxtender.tex` file into an `output/nexxtender.pdf` 
+1. Compiles the \*.dot files in the `dot` directory into pdf files in the `intermediate` sub directory. 
+2. Compiles the \*.puml files in the `puml` directory into pdf files in the `intermediate` sub directory. 
+3. Compiles the \*.pumlo files in the `puml` directory into png files in the `intermediate` sub directory.
+4. Compiles the `nexxtender.tex` file into an `output/nexxtender.pdf` 
       using `latexmk -pdf -shell-escape -outdir=output nexxtender.tex`
 
 ## License
