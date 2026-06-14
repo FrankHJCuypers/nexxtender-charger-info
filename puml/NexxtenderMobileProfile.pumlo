@@ -29,6 +29,6 @@
  +++ **Firmware Data Chunck** //characteristic//
  ++ **Charging** //service//
  +++ **Charging Basic Data** //characteristic//
-}
+ +++ **Date UTC** //characteristic//}
 }
 @endsalt

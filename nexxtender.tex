@@ -3108,10 +3108,12 @@ under the \textbf{Charging} (CE) service.
 	\textbf{Charging Car Data} & P & & & N & HEX \\
 	0x003f & fd47416a-95fb-4206-88b5-b4a8045f75\textbf{db} &
 	\textbf{Charging Advanced Data} & P & & & N & HEX \\
+	? &  0000\textbf{2aed}-0000-1000-8000-00805f9b34fb&
+	\textbf{Date UTC} & P &  P & & & HEX \\
 \end{longtable}
 
-The \emph{Nexxtender Home} supports all 4 characteristics. 
-The \emph{Nexxtender Mobile} only supports the \textbf{Charging Basic Data} characteristic.
+The \emph{Nexxtender Home} does not support the \textbf{Date UTC} characteristic. 
+The \emph{Nexxtender Mobile} only supports the \textbf{Charging Basic Data} characteristic and \textbf{Date UTC} characteristic.
 
 \subsubsection{Charging Basic Data (0xCF)}
 \label{charging_basic_data_0xcf}
@@ -3486,6 +3488,15 @@ the scenario is as shown in figure \ref{illustration.15}.
 \end{figure}
 
 Experience shows that there is a notification approximately every 5 seconds.
+
+\subsubsection{Date UTC (0x2AED)}
+\label{date_utc_2aed}
+
+The \textbf{Date UTC} characteristic is only supported on \emph{Nexxtender Mobile} devices with a minimum Firmware Revision of 1.3.8. 
+It is not supported on the  \emph{Nexxtender Home}.
+
+The date format for the \textbf{Date UTC} is the same as shown in tables \ref{table.25} and \ref{table.26}.
+It can be directly read from or written to the Date UTC (0x2AED) characteristic.
 
 \nocite{*}          % include all references
 \bibliographystyle{plain} % We choose the "plain" reference style

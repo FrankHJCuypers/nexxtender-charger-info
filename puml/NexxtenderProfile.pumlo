@@ -36,6 +36,7 @@
  +++ **Charging Grid Data** //characteristic//
  +++ **Charging Car Data** //characteristic//
  +++ **Charging Advanced Data** //characteristic//
+ +++ **Date UTC** //characteristic//
 }
 }
 @endsalt
