@@ -893,7 +893,13 @@ Table \ref{table.8} shows the Characteristics of the \emph{Device Information} s
 	\textbf{Firmware Revision String} & N & P & & & ASCII \\
 	0x0014 & \small 0000\textbf{2a27-}0000-1000-8000-00805f9b34fb &
 	\textbf{Hardware Revision String} & N & P & & & ASCII \\
+	? & \small 0000\textbf{2a29-}0000-1000-8000-00805f9b34fb &
+	\textbf{Manufacturer Name String} & N &  & & & ASCII \\
+
 \end{longtable}
+
+The \textbf{Manufacturer Name String} characteristic is not supported on a \emph{Nexxtender Home}.
+Writing any of these characteristics is ``P'' on a \emph{Nexxtender Home}, but ``  '' on a \emph{Nexxtender Mobile}.
 
 Each string is 0x00-terminated and maximum 16 bytes in length. 
 An example of the returned values is in table \ref{table.9}.
@@ -920,6 +926,8 @@ An example of the returned values is in table \ref{table.9}.
 	00 & 2.53.2 \\
 	Hardware Revision String & 41 32 00 00 00 00 00 00 00 00 00 00 00 00 00
 	00 & A2 \\
+	Manufacturer Name String & 50 4F 57 45 52 44 41 4C 45 00 00 00 00 00 00
+	00 & POWERDALE \\
 \end{longtable}
 
 \subsection{Generic characteristics}

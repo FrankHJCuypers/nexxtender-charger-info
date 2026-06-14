@@ -13,6 +13,7 @@
  +++ <color:#9a9a9a>**Serial Number String** //characteristic//
  +++ <color:#9a9a9a>**Firmware Revision String** //characteristic//
  +++ <color:#9a9a9a>**Hardware Revision String** //characteristic//
+ +++ <color:#9a9a9a>**Manufacturer Name String** //characteristic//
  ++ **Advertisement** //service//
  ++ **CDR** //service//
  +++ **CDR Command** //characteristic//
