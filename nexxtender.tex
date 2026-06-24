@@ -3136,7 +3136,7 @@ Returns 14 bytes, structured as shown in tables \ref{table.41} and \ref{table.42
 	\hline
 	\multicolumn{2}{@{}|l|}{%
 	seconds} & discriminator & status & \multicolumn{4}{l}{%
-	RFU1} & \multicolumn{4}{|l|}{%
+	RFU1/carPower} & \multicolumn{4}{|l|}{%
 	energy} & RFU2 & phaseCount \\
 	\hline
 \end{longtable}
@@ -3161,7 +3161,11 @@ Returns 14 bytes, structured as shown in tables \ref{table.41} and \ref{table.42
 	charging\footnote{What is exact definition?} \\
 	2      & 1      & discriminator & uint8  & Discriminator state according to table \secref{table.43} \\
 	3      & 1      & status        & uint8  & Status according to table	\secref{table.44} \\
-	4      & 4      & RFU1           & uint32 & RFU                                    \\
+	4      & 4      & RFU1           & uint32 & RFU on \emph{Nexxtender Home}                                   \\
+             &         & carPower     & uint32 & Only on \emph{Nexxtender Mobile}: 
+           Total power consumption from the car in Watt. 
+		Equals P\textsubscript{EV} in section \secref{ecosystem_overview}. 
+           Is the equivalent of \emph{carPower} in  \secref{charging_advanced_data_0xdb}? \\
 	8      & 4      & energy        & uint32 & Total energy in Wh charged during this session? \\
 	12     & 1      & RFU2           & uint8  & RFU                                    \\
 	13     & 1      & phaseCount    & uint8  & Charging Phase Count                   \\
