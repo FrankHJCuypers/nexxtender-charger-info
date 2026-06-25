@@ -3505,10 +3505,14 @@ Experience shows that there is a notification approximately every 5 seconds.
 \label{date_utc_2aed}
 
 The \textbf{Date UTC} characteristic is only supported on \emph{Nexxtender Mobile} devices with a minimum Firmware Revision of 1.3.8. 
-It is not supported on the  \emph{Nexxtender Home}.
+It is not supported on the  \emph{Nexxtender Home}. 
+This characteristic allows to read and write the internal clock of the \emph{Nexxtender Mobile}.
 
 The date format for the \textbf{Date UTC} is the same as shown in tables \ref{table.25} and \ref{table.26}.
 It can be directly read from or written to the Date UTC (0x2AED) characteristic.
+
+Note that reading  the \textbf{Date UTC} does not return the current value of the internal clock,
+but its value on the last power-on or write \textbf{Date UTC} .
 
 \nocite{*}          % include all references
 \bibliographystyle{plain} % We choose the "plain" reference style
