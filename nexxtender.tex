@@ -1465,19 +1465,32 @@ every quarter
 \paragraph{Generic Data format}
 \label{generic_data_format_1}
 
-Returns 20 bytes related to an event. 
-The 20 bytes are structured as shown in tables \ref{table.77} and \ref{table.76o}.
+Returns 44 bytes related to an event. 
+The 44 bytes are structured as shown in tables \ref{table.77a},  \ref{table.77b} and \ref{table.76o}.
 
 Until now, no Metrics messages where seen in BLE traces.
 
-\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-	\caption{Generic Data data format overview}
-	\label{table.77}\\  %<---- Problem
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{Generic Data data format overview, bytes 0 to 21}
+	\label{table.77a}\\  %<---- Problem
 	\hline
 	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 
-	& 17 & 18 & 19 \\
+	& 17 & 18 & 19  & 20 & 21\\
 	\hline
-	\multicolumn{20}{|l|}{unknown} \\
+	\multicolumn{4}{|l|}{%
+	eventTime} & \multicolumn{18}{l|}{unknown} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{Generic Data data format overview, bytes 22 to 43}
+	\label{table.77b}\\  %<---- Problem
+	\hline
+	22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & 36 & 37 & 38 
+	& 39 & 40 & 41  & 42 & 43\\
+	\hline
+	\multicolumn{20}{|l|}{unknown} & \multicolumn{2}{l|}{%
+	crc16}\\
 	\hline
 \end{longtable}
 
@@ -1497,7 +1510,9 @@ Until now, no Metrics messages where seen in BLE traces.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0      & 20     & unknown & unknown &             \\
+	0      & 4      & eventTime & uint32     & Time of the event                          \\
+	4     & 38     & unknown & unknown &             \\
+	42     & 2      & crc16     & uint16     & CRC-16/MODBUS over previous 42 bytes       \\
 \end{longtable}
 
 \subsubsection{Badge operations}
