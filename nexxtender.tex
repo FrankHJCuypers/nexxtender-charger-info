@@ -630,7 +630,7 @@ supported by the Nexxtender Charger.
 \subsection{General information}
 \label{general_information}
 
-BLE GATT codes fields always in little-endian. 
+BLE GATT always codes fields in little-endian. 
 So all integer value types wider than uint8 (uint16, uint32, \ldots) always store the least
 significant byte (LSB) at the lowest address, 
 then the next least significant byte, 
@@ -1311,7 +1311,7 @@ The 20 bytes are structured as shown in tables \ref{table.61} and \ref{table.62}
 
 The \emph{eventType} coding is still unclear. 
 By mapping the Events transferred over BLE GATT to the events shown by the Nexxtmove app or
-Nexxtmove.me website, the following partial table \ref{table.63} is constructed.
+Nexxtmove.me website, the following very partial table \ref{table.63} is constructed.
 
 \begin{longtable}[]{llllp{2.7cm}p{5.8cm}}
 	\caption{eventType coding}
@@ -2507,13 +2507,13 @@ Table \ref{table.55} lists the \emph{CDR Command} operation id\textquotesingle s
 	others?      &                                                                \\
 \end{longtable}
 
-\subsubsection{CDR Status status}
+\subsubsection{CDR Status}
 \label{cdr_status_status}
 
 Possible \emph{CDR Status} values are shown in table \ref{table.56}.
 
 \begin{longtable}[]{@{}ll@{}}
-	\caption{CDR Status status codes}
+	\caption{CDR Status codes}
 	\label{table.56}
 	\tabularnewline
 	\toprule\noalign{}
@@ -2603,7 +2603,7 @@ The 32 bytes are structured as shwon in tables \ref{table.53a} , \ref{table.53b}
 \subsection{CCDT characteristics}
 \label{ccdt_characteristics}
 
-Table \ref{table.38} shwos wich characteristics of the \emph{CCDT} service are used.
+Table \ref{table.38} shows wich characteristics of the \emph{CCDT} service are used.
 
 \textbf{Note}: If the charger is an \emph{Nexxtender Home}, 
 these characteristics are send under the \textbf{Generic} (C1) service. 
@@ -2700,13 +2700,13 @@ id\textquotesingle s.
 	others?      &                                                                \\
 \end{longtable}
 
-\subsubsection{CCDT Status status}
+\subsubsection{CCDT Status}
 \label{ccdt_status_status}
 
-Possible \emph{CCDT Status status} values are shown in table \ref{table.58}.
+Possible \emph{CCDT Status} values are shown in table \ref{table.58}.
 
 \begin{longtable}[]{@{}ll@{}}
-	\caption{CCDT Status status codes}
+	\caption{CCDT Status codes}
 	\label{table.58}
 	\tabularnewline
 	\toprule\noalign{}
@@ -3166,7 +3166,7 @@ Returns 14 bytes, structured as shown in tables \ref{table.41} and \ref{table.42
            Total power consumption from the car in Watt. 
 		Equals P\textsubscript{EV} in section \secref{ecosystem_overview}. 
            Is the equivalent of \emph{carPower} in  \secref{charging_advanced_data_0xdb}? \\
-	8      & 4      & energy        & uint32 & Total energy in Wh charged during this session? \\
+	8      & 4      & energy        & uint32 & Total energy in Wh charged during this session \\
 	12     & 1      & RFU2           & uint8  & RFU                                    \\
 	13     & 1      & phaseCount    & uint8  & Charging Phase Count                   \\
 \end{longtable}
