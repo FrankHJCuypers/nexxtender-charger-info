@@ -19,9 +19,9 @@ GSM -> Command: Write [Metrics:UPDATE_STATUS(0x2002)]
 autonumber stop
 return error code
 autonumber resume
-GSM <<- Status: Notify (0x20//nn//--)
+GSM <<- Status: Notify [Metrics://nnn//~-- (0x2//nnn//--)]
 == Body ==
-loop until //nn// == 0 
+loop until //nnn// == 0 
   GSM -> Data: Read data
   autonumber stop
   return data
@@ -30,8 +30,8 @@ loop until //nn// == 0
   autonumber stop
   return error code
   autonumber resume
-  GSM <<- Status: Notify (0x20//nn//--)
-end
+  GSM <<- Status: Notify [Metrics://nnn//~-- (0x2//nnn//--)]
+  GSM <<- Status: Notify (0x2//nnn//--)
 == Finish ==
 GSM ->  Status: Disable notifications
 @enduml

@@ -1207,7 +1207,7 @@ Possible \emph{Event Status} values are shown in table \ref{table.15}.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0x10\emph{nn} & \emph{nn}: the number of \emph{remaining events} to 
+	0x1\emph{nnn} & \emph{nnn}: the number of \emph{remaining events} to 
 	read \\
 \end{longtable}
 
@@ -1234,12 +1234,12 @@ The scenario is as shown in figure \ref{illustration.20}.
 	      for the first record.
 	\item
 	      Client is notified of a \textbf{Generic Status} change, containing the new status, 
-	      ndicating 0x10\emph{nn-\/-}, with \emph{nn} the number of
+	      indicating 0x1\emph{nnn-\/-}, with \emph{nnn} the number of
 	      \textbf{Generic Data} records available. 
-	      If \emph{nn} \textgreater{} 0, the scenario continues at point 4. 
+	      If \emph{nnn} \textgreater{} 0, the scenario continues at point 4. 
 	     Otherwise it is complete.
 	\item
-	      Client reads the \textbf{Generic Data} obtaining the data of the record
+	      Client reads the \textbf{Generic Data} obtaining the data of the oldest record.
 	\item
 	      Client writes the \textbf{Generic Command}{[}Event:NEXT(0x1001){]} for the next record. 
 	      Note that probably this also indicates that the record is successfully stored by the Client, 
@@ -1248,7 +1248,7 @@ The scenario is as shown in figure \ref{illustration.20}.
 	      you should not perform above scenario with another app.
 	\item
 	      Client is notified of a \textbf{Generic Status} change, containing the new status, 
-	      indicating 0x10\emph{nn-\/-}, with \emph{nn} the number of
+	      indicating 0x1\emph{nnn-\/-}, with \emph{nnn} the number of
 	      \textbf{Generic Data} records available. 
           If \emph{nn} \textgreater{} 0, the scenario continues at point 4. 
 	     Otherwise it is complete.
@@ -1354,7 +1354,7 @@ Nexxtmove.me website, the following very partial table \ref{table.63} is constru
 	Then it codes the new value in the same way. \\
 \end{longtable}
 
-\subsubsection{Metric operations}
+\subsubsection{Metrics operations}
 \label{metric_operations}
 
 This deals with Metrics\footnote{Which metrics?}.
@@ -1403,7 +1403,7 @@ Possible Metrics \emph{status} values are shown in table \ref{table.17}.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0x20\emph{nn} & \emph{nn}: the number of \emph{remaining metrics} to 
+	0x2\emph{nnn} & \emph{nnn}: the number of \emph{remaining metrics} to 
 	read \\
 \end{longtable}
 
@@ -1430,8 +1430,8 @@ scenario is as shown in figure \ref{illustration.28}.
 	      for the first record.
 	\item
 	      Client is notified of a \textbf{Generic Status} change, containing the new status, 
-	      indicating 0x10\emph{nn-\/-}, with \emph{nn} the number of \textbf{Generic Data} 
-	      records available. If \emph{nn} \textgreater{} 0, the scenario continues at point 4. 
+	      indicating 0x2\emph{nnn-\/-}, with \emph{nnn} the number of \textbf{Generic Data} 
+	      records available. If \emph{nnn} \textgreater{} 0, the scenario continues at point 4. 
 	      Otherwise it is complete.
 	\item
 	      Client reads the \textbf{Generic Data} obtaining the data of the record
@@ -1444,9 +1444,9 @@ scenario is as shown in figure \ref{illustration.28}.
            you should not perform above scenario with another app.
 	\item
 	      Client is notified of a \textbf{Generic Status} change, containing the new status, 
-	      indicating 0x10\emph{nn-\/-}, with \emph{nn} the number of
+	      indicating 0x2\emph{nnn-\/-}, with \emph{nnn} the number of
 	      \textbf{Generic Data} records available. 
-	      If \emph{nn} \textgreater{} 0, the scenario continues at point 4.
+	      If \emph{nnn} \textgreater{} 0, the scenario continues at point 4.
 	      Otherwise it is complete.
 	\item
 	      Client disables \textbf{Generic Status} notifications.
@@ -1454,9 +1454,13 @@ scenario is as shown in figure \ref{illustration.28}.
 
 \footnote{Can this be confirmed}
 
-The number of Metrics records that can be stored by the \emph{Nexxtender Home} is limited. 
-The exact limit is not known. 
+The number of Metric records that can be stored by the \emph{Nexxtender Home} is limited. 
+The limit is 0x240 (576)
 If the limit is reached, it is expected that older records are overwritten.
+The Nexxtmove app does never read the Metrics records.
+
+The Nexxtender Home charger creates a new Metrics record every quarter, so the the buffer is full after 6 days.
+every quarter
 
 \paragraph{Generic Data format}
 \label{generic_data_format_1}

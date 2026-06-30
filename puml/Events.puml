@@ -19,9 +19,9 @@ GSM -> Command: Write [Event:UPDATE_STATUS(0x1002)]
 autonumber stop
 return error code
 autonumber resume
-GSM <<- Status: Notify [Event://nn//~-- (0x10//nn//--)]
+GSM <<- Status: Notify [Event://nnn//~-- (0x1//nnn//--)]
 == Body ==
-loop until //nn// == 0 
+loop until //nnn// == 0 
   GSM -> Data: Read data
   autonumber stop
   return data
@@ -30,7 +30,7 @@ loop until //nn// == 0
   autonumber stop
   return error code
   autonumber resume
-  GSM <<- Status: Notify [Event://nn//~-- (0x10//nn//--)]
+  GSM <<- Status: Notify [Event://nnn//~-- (0x1//nnn//--)]
 end
 == Finish ==
 GSM ->  Status: Disable notifications
