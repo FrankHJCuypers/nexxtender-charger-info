@@ -1459,7 +1459,7 @@ The limit is 0x240 (576)
 If the limit is reached, it is expected that older records are overwritten.
 The Nexxtmove app does never read the Metrics records.
 
-The Nexxtender Home charger creates a new Metrics record every quarter, so the the buffer is full after 6 days.
+The Nexxtender Home charger creates a new Metrics record every multiple of a quarter (hh:00, hh:15, HH:30, hh:45) quarter, so the  buffer is full after 6 days.
 every quarter
 
 \paragraph{Generic Data format}
@@ -2553,7 +2553,7 @@ Possible \emph{CDR Status} values are shown in table \ref{table.56}.
 \label{cdr_record_format}
 
 Returns a 32 bytes CDR record that summarizes a charging session. 
-The 32 bytes are structured as shwon in tables \ref{table.53a} , \ref{table.53b} and \ref{table.54}.
+The 32 bytes are structured as shown in tables \ref{table.53a} , \ref{table.53b} and \ref{table.54}.
 
 \begin{longtable}[]{@{}|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|@{}}
 	\caption{CDR Record data format overview, bytes 0 to 15}

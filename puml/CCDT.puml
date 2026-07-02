@@ -16,15 +16,15 @@ end box
 autonumber
 == Initiation ==
 GSM ->  Status: Enable notifications 
-GSM -> Status: Read data
+GSM -> Status: Read status
 autonumber stop
-return //nnnnnnnn--//
+return //nnnnnnnn//
   autonumber resume
 == Body ==
 loop until //nnnnnnnn// == 0 
   GSM -> Record: Read data
   autonumber stop
-  return data
+  return record
   autonumber resume
   GSM -> Command: Write [0x01]
   autonumber stop
