@@ -23,6 +23,13 @@ chargers.
 This is the interface that the Nexxtender Nexxtmove app uses to interact
 with the charger.
 
+## Already build pdf files
+
+The latest compiled version of the pdf is in the latest [action](actions).
+
+The latest official version of the pdf is in [latest release](releases/latest)
+
+
 ## Build the pdf
 The document is generated from LaTeX input files and diagrams made with PlantUML
 and GraphViz dot.
