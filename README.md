@@ -25,9 +25,9 @@ with the charger.
 
 ## Already build pdf files
 
-The latest compiled version of the pdf is in the latest [action](actions).
+The latest compiled version of the pdf is in the latest [action](https://github.com/FrankHJCuypers/nexxtender-charger-info/actions/latest).
 
-The latest official version of the pdf is in [latest release](releases/latest)
+The latest official version of the pdf is in [latest release](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases/latest).
 
 
 ## Build the pdf
