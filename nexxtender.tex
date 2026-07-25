@@ -3,8 +3,8 @@
 \PassOptionsToPackage{hyphens}{url}
 \documentclass[a4paper]{article}
 %\usepackage{authoraftertitle}
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
 
 % \paragraph should also have its title on a separate line from the bodytext
 \makeatletter
@@ -13,6 +13,15 @@
       {-\baselineskip}%
       {.5\baselineskip}%
       {\normalfont\normalsize\bfseries}}
+\makeatother
+
+% \subparagraph should also have its title on a separate line from the bodytext
+\makeatletter
+\renewcommand\subparagraph{%
+   \@startsection{subparagraph}{5}{0mm}%
+      {-\baselineskip}%
+      {.5\baselineskip}%
+      {\normalfont\normalsize\itshape}}
 \makeatother
 
 \usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm,]{geometry}
@@ -126,6 +135,11 @@ Version \gitdescribe \\[0.4cm]
 	\item
 	      Section \secref{ecosystem_overview} gives an high level overview of the ecosystem.
 	\item
+	      Section \secref{product_number_serial_number_pin_and_pairing} explains the Product Number, 
+	      Serial Number and their relation with the PIN.
+	\item
+	      Section \secref{advertisement_and_scanning} explain the BLE concept of advertisement and scanning.
+	\item
 	      Section \secref{ble_services_overview} details the BLE services provided by the Nexxtender
 	      Charger to the Nexxtmove app.
 \end{itemize}
@@ -147,10 +161,13 @@ Version \gitdescribe \\[0.4cm]
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
+	Advance & \emph{Nexxtender Advance}: not targetted by this document \\
 	\href{https://bluetoothle.wiki/start}{BLE} & Bluetooth Low Energy \\
 	\href{https://en.wikipedia.org/wiki/Bluetooth_Low_Energy_beacon}{BLE beacon} & Dedicated class of BLE device \\
+	CCDT & Charging Cycle Detail Trace. 
+	It provides periodic or incremental telemetry data during a CDR session\\
 	\href{https://saascharge.com/glossary/}{CDR} & Charging Data Record or Charging Detail Record \\
-	\href{https://www.cebeo.be/catalog/nl-be/products/powerdale-nexxtender-cluster-power-module-t2-plug-32a-voor-1-laadpunt--6486546}{CLUSTER} & Nexxtender Cluster power module\\
+	\href{https://www.cebeo.be/catalog/nl-be/products/powerdale-nexxtender-cluster-power-module-t2-plug-32a-voor-1-laadpunt--6486546}{CLUSTER} & Nexxtender Cluster power module. Not targetted by this document\\
 	CT & Nexxtender Current Transformer attached to the grid \\
 	\href{https://en.wikipedia.org/wiki/CBOR}{CBOR} & Concise Binary Object
 	Representation. See also \url{https://cbor.me/} for computations \\
@@ -171,7 +188,8 @@ Version \gitdescribe \\[0.4cm]
 	\href{https://software-dl.ti.com/lprf/sdg-latest/html/ble-stack-3.x/gatt.html}{GATT} & Generic Attributes \\
 	\href{https://www.cebeo.be/catalog/nl-be/products/powerdale-laadpaal-nexxtender-home-1-4kw-22-kw-t2-cable-7m-rcm-bluetooth-6496973}{HOME}
 	& Nexxtender wall mountable charger. Also called \emph{Nexxtender
-	Home} \\
+	Home}. 
+	Supports 1 and 3 phase systems \\
 	\href{https://en.wikipedia.org/wiki/ISO/IEC_14443}{ISO/IEC 14443} &
 	Standard for Proximity cards \\
 	\href{https://punchthrough.com/lightblue/}{LightBlue}® & With
@@ -183,17 +201,18 @@ Version \gitdescribe \\[0.4cm]
 	MOBILE 
 	& Nexxtender Mobile charger. Also called \emph{Nexxtender Mobile}. Either a MOBILE BLACK or a MOBILE RED \\
 	\href{https://www.cebeo.be/catalog/nl-be/products/powerdale-mobile-red-type-2-t2-3f-4kw-11kw-incl-rcm-adapter-to-schuko-plug-6486564}{MOBILE RED}
-	& Nexxtender Mobile Red charger \\
+	& Nexxtender Mobile Red charger. Supports 3 phases \\
 	\href{https://www.cebeo.be/catalog/nl-be/products/powerdale-mobile-black-type-2-t2-1f-1-4kw-2-3kw-incl-rcm-6486563}{MOBILE BLACK}
-	& Nexxtender Mobile Black charger \\
+	& Nexxtender Mobile Black charger. Supports 1 phase \\
 	Msn & Most significant nibble \\
 	Nexxtender & Powerdale brand name for car chargers \\
-	\href{https://play.google.com/store/apps/details?id=com.powerdale.nexxtender&hl=en}{Nexxtmove}
-	& Android app to control the HOME, see
-	\cite{GMNEXT} \\
+	Nexxtender Charger & Either a HOME or MOBILE\\
 	\href{https://play.google.com/store/apps/details?id=com.powerdale.homeinstaller&hl=en}{Nexxtender
 	Installer} & Nexxtmove app for installers, see	\cite{NMIAPP}. 
 	Seems to be a	super set of Nexxtmove \\
+	\href{https://play.google.com/store/apps/details?id=com.powerdale.nexxtender&hl=en}{Nexxtmove}
+	& Android app to control the HOME, see
+	\cite{GMNEXT} \\
 	\href{https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=en}{nRF
 	Connect for Mobile} & With nRF Connect, you can scan, connect to and
 	browse any nearby BLE device. 
@@ -201,7 +220,8 @@ Version \gitdescribe \\[0.4cm]
 	\href{https://www.brusselstimes.com/935740/belgian-charging-station-giant-powerdales-bankruptcy-leaves-users-stranded\%20Powerdale}{Powerdale}
 	& Manufacturer of the Nexxtender products. 
 	Out of business. See \cite{TA2024} (in Dutch). \\
-	\href{https://en.wikipedia.org/wiki/Unix_time}{Unix Time} & Number of
+	\href{https://en.wikipedia.org/wiki/Unix_time}{Unix Time} & 
+ of
 	seconds since 1/1/1970 00:00 \\
 	\href{https://www.wireshark.org/}{Wireshark} & The
 	world\textquotesingle s most popular network protocol analyzer \\
@@ -249,9 +269,9 @@ The following elements play a role.
 	      	  
 	      	\item
 	      	      The \textbf{Power Grid} delivers the power P\textsubscript{Grid} to
-	      	      the House and the \emph{Nexxtender Home} Charger. 
+	      	      the House and the \emph{Nexxtender Charger}. 
 	      	      If the solar panels produce more power then the consumption of the home and the
-	      	      \emph{Nexxtender Home} charger, 
+	      	      \emph{Nexxtender Charger}, 
 	      	      the power P\textsubscript{Grid} from the grid is negative and power is injected in the grid.
 	      	\item
 	      	      The optional \textbf{Solar Panels} delivers the power  P\textsubscript{Solar} if the sun is shining.
@@ -259,12 +279,12 @@ The following elements play a role.
 	      	      The \textbf{House} consumes the power P\textsubscript{House} in
 	      	      function of the appliances that are using power.
 	      	\item
-	      	      The \textbf{Nexxtender Home Charger} consumes the power
+	      	      The \textbf{Nexxtender Charger} consumes the power
 	      	      P\textsubscript{Charger} when the EV is charging.
 	      	\item
 	      	      The \textbf{EV} consumes P\textsubscript{EV} when it is charging.
 	      	      P\textsubscript{EV} equals P\textsubscript{Charger} minus the
-	      	      consumption of the \emph{Nexxtender Home} charger itself.
+	      	      consumption of the \emph{Nexxtender Charger} itself.
 	      	\item
 	      	      P\textsubscript{Grid} = P\textsubscript{House} +
 	      	      P\textsubscript{Charger} - P\textsubscript{Solar}
@@ -277,7 +297,7 @@ The following elements play a role.
 	      \begin{itemize}
 	      	  
 	      	\item
-	      	      The \textbf{Nexxtender Home Charger}
+	      	      The \textbf{Nexxtender Charger}
 	      	      
 	      	      \begin{itemize}
 	      	      	    
@@ -295,25 +315,25 @@ The following elements play a role.
 	      	      \begin{itemize}
 	      	      	    
 	      	      	\item
-	      	      	      Communicates with the \emph{Nexxtender Home} charger and the
+	      	      	      Communicates with the \emph{Nexxtender Charger} and the
 	      	      	      \href{http://www.Nexxtmove.me/}{www.Nexxtmove.me} website.
 	      	      	\item
 	      	      	      A \href{http://www.Nexxtmove.me/}{www.Nexxtmove.me} account is
 	      	      	      required for the Nexxtmove app to work.
 	      	      	\item
-	      	      	      Allows to control the \emph{Nexxtender Home} charger. 
-	      	      	       It is possible to configure the \emph{Nexxtender Home} charger, 
+	      	      	      Allows to control the \emph{Nexxtender Charger}. 
+	      	      	       It is possible to configure the \emph{Nexxtender Charger}, 
 	      	      	      add badges, start/stop a charging session etc.
 	      	      	\item
 	      	      	      Synchronizes data, including data on charging sessions, 
 	      	      	      to the \href{http://www.Nexxtmove.me/}{www.Nexxtmove.me} website.
 	      	      	\item
 	      	      	      An \emph{Nexxtmove Installer app} exists that is used by the
-	      	      	      installer installing the \emph{Nexxtender Home} charger. 
+	      	      	      installer installing the \emph{Nexxtender Charger}. 
 	      	      	      It has some more functionality then the regular Nexxtmove app that can be
 	      	      	      used to do the initial setup of the system. 
 	      	      	      It is also the \emph{Nexxtmove Installer app} that knows how to generate the BLE
-	      	      	      pairing PIN from the \emph{Nexxtender Home} charger\textquotesingle s PN and SN. 
+	      	      	      pairing PIN from the \emph{Nexxtender Charger}\textquotesingle s PN and SN. 
 	      	      	      The \emph{Nexxtmove Installer app} requires a special Installer account.
 	      	      \end{itemize}
 	      	\item
@@ -326,18 +346,17 @@ The following elements play a role.
 	      	      	      Requires an account
 	      	      	\item
 	      	      	      Controls the Nexxtmove app which in turn controls the
-	      	      	      \emph{Nexxtender Home} charger.
+	      	      	      \emph{Nexxtender Charger}.
 	      	      	\item
 	      	      	      Receives all information about charging events on the
-	      	      	      \emph{Nexxtender Home} charger.
+	      	      	      \emph{Nexxtender Charger}.
 	      	      	\item
-	      	      	      If the \emph{Nexxtender Home} charger is provided by an employer to an employee, 
+	      	      	      If the \emph{Nexxtender Charger} is provided by an employer to an employee, 
 	      	      	      \href{http://www.nexttmove.me/}{www.Nexxtmove.me}
 	      	      	      controls the refunding of the employee by the employer.
 	      	      	\item
 	      	      	      Several providers of chargers rebrand this website. 
-	      	      	      For instance if your employer provided you with a \emph{Nexxtender Home}
-	      	      	      charger via Q8, 
+	      	      	      For instance if your employer provided you with a \emph{Nexxtender Charger} via Q8, 
 	      	      	      the Q8 electric website is actually \href{http://www.nexttmove.me/}{www.Nexxtmove.me}.
 	      	      \end{itemize}
 	      	\item
@@ -347,9 +366,9 @@ The following elements play a role.
 	      	      	    
 	      	      	\item
 	      	      	      Needs to be programmed before it can be used. 
-	      	      	      Programming involves the use of the Nexxtmove app and the \emph{Nexxtender Home} charger.
+	      	      	      Programming involves the use of the Nexxtmove app and the \emph{Nexxtender Charger}.
 	      	      	\item
-	      	      	      Starting a charging session on the \emph{Nexxtender Home} charger
+	      	      	      Starting a charging session on the \emph{Nexxtender Charger}
 	      	      	      with a badge is possible, 
 	      	      	      even without a \href{http://www.Nexxtmove.me/}{www.Nexxtmove.me} account,
 	      	      	      provided that the badge was already configured with an account.
@@ -360,7 +379,7 @@ The following elements play a role.
 	      	      \end{itemize}
 	      	\item
 	      	      The CT measures P\textsubscript{Grid} and provides the information to
-	      	      the \emph{Nexxtender Home} charger.
+	      	      the \emph{Nexxtender Charger}.
 	      \end{itemize}
 \end{itemize}
 
@@ -1161,7 +1180,11 @@ Possible \emph{Loader Status} values are shown in table \ref{table.13}.
 \subsubsection{Event operations}
 \label{event_operations}
 
-This deals with BLE events different from charging events from section \secref{ccdt_characteristics}.
+The \emph{Nexxtender Home} logs all kind of event types.
+It creates one record per event.
+This feature deals with BLE events different from charging events from section \secref{ccdt_characteristics}.
+
+The event operations allow to download the event records from the charger to the mobile phone.
 
 \paragraph{Event operation ids}
 \label{event_operation_ids}
@@ -1265,7 +1288,7 @@ If the limit is reached, it is expected that older records are overwritten.
 \paragraph{Generic Data format}
 \label{generic_data_format}
 
-\textbf{Generic Data} returns 20 bytes related to an event. 
+\textbf{Generic Data} returns a record or 20 bytes per event. 
 Events can happen anytime, 
 not only during the start/stop time frame of a \secref{cdr_characteristics}.
 The 20 bytes are structured as shown in tables \ref{table.61} and \ref{table.62}.
@@ -1278,7 +1301,7 @@ The 20 bytes are structured as shown in tables \ref{table.61} and \ref{table.62}
 	& 17 & 18 & 19 \\
 	\hline
 	\multicolumn{4}{|l|}{%
-	eventTime} & unk1 & unk2 & unk3 & \multicolumn{11}{l|}{%
+	eventTime} & eventType & unk1 & \multicolumn{12}{l|}{%
 	data} & \multicolumn{2}{l|}{%
 	crc16} \\
 	\hline
@@ -1301,71 +1324,393 @@ The 20 bytes are structured as shown in tables \ref{table.61} and \ref{table.62}
 	\bottomrule\noalign{}
 	\endlastfoot
 	0      & 4      & eventTime & uint32     & Time of the event                          \\
-	4      & 1      & unk1      & byte       & Unknown. Somehow codes the event type?     \\
-	5      & 1      & unk2      & byte       & Unknown. Somehow codes the event type?     \\
-	6      & 1      & unk3      & byte       & Unknown. Somehow codes the event type?     \\
-	7      & 11     & data      & byte{[}{]} & Data that belongs to the event. The format 
-	depends on the event type. \\
+	4      & 1      & eventType  & byte       & Codes the event type.  Possible values are in table \ref{table.79}  \\
+	5      & 1      & unk1      & byte       & Unknown. Seems to be hardcoded to 0x01?     \\
+	6      & 12     & data      & byte{[}{]} & Data that belongs to the event. The detailed format 
+	depends on the event type, see the following  tables. \\
 	18     & 2      & crc16     & uint16     & CRC-16/MODBUS over previous 18 bytes       \\
 \end{longtable}
 
-The \emph{eventType} coding is still unclear. 
-By mapping the Events transferred over BLE GATT to the events shown by the Nexxtmove app or
-Nexxtmove.me website, the following very partial table \ref{table.63} is constructed.
-
-\begin{longtable}[]{llllp{2.7cm}p{5.8cm}}
-	\caption{eventType coding}
-	\label{table.63}
+\begin{longtable}[]{@{}ll@{}}
+	\caption{eventType values}
+	\label{table.79}
 	\tabularnewline
 	\toprule\noalign{}
-	unk1 & unk2 & unk3 & data                                   & Name                                   & Description      \\
+	eventType & Description    \\
 	\midrule\noalign{}
 	\endfirsthead
 	\toprule\noalign{}
-	unk1 & unk2 & unk3 & data                                   & Name                                   & Description      \\
+	eventType & Description    \\
 	\midrule\noalign{}
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0x02 & 0x01 & 0x02 & \footnotesize 0x0100000000000000000000 & \footnotesize PLUGIN                   &                  \\
-	0x02 & 0x01 & 0x00 & \footnotesize 0x0100000000000000000000 & \footnotesize PLUGIN                   & What is the      
-	difference with the other PLUGIN row? \\
-	0x02 & 0x01 & 0x01 & \footnotesize 0x0000000000000000000000 & \footnotesize UNPLUGGED                &                  \\
-	0x01 & 0x01 & 0x02 & \footnotesize 0x070497db82126880000000 & \footnotesize AUTHORIZED\_\ ACCESS     &                  
-	Authorized access with a badge with 7-byte UID 0x0497db82126880 \\
-	0x02 & 0x01 & 0x01 & \footnotesize 0x0200000000000000000000 & \footnotesize CHARGING                 &                  \\
-	0x01 & 0x01 & 0x40 & \footnotesize 0x0000000000000000000000 & \footnotesize ECO?                     & During charging, 
-	switched from MAX to ECO charging using the Nexxtmove app. \\
-	\multirow{5}{*}{0x06} & \multirow{5}{*}{0x01} & \multirow{5}{*}{0x08} &
-	\footnotesize 0x0900020000000000000000 & \multirow{5}{*}{\footnotesize FAULT (Error)} &
-	\multirow{5}{5cm}{An error event. Details are coded in the data, but syntax unknown.}\\
-	& & & \footnotesize 0x0900010000000000000000 \\
-	& & & \footnotesize 0x0100030000000000000000 \\
-	& & & \footnotesize 0x0100050000000000000000 \\
-	& & & \footnotesize 0x0900040000000000000000 \\
-	0x04 & 0x01 & 0x03 & \footnotesize 0x060000000a000000000000 & \footnotesize CONFIGURATION\_\ UPDATED &                  
-	The
-	\secref{config_1_0_format} field \emph{safe} was changed from 6 to 10. 
-	The data first codes the old value 6 on 32 bits in little endian. 
-	Then it codes the new value in the same way. \\
-	0x04 & 0x01 & 0x03 & \footnotesize 0x0a00000006000000000000 & \footnotesize CONFIGURATION\_\ UPDATED &                  
-	\secref{config_1_0_format} field \emph{safe} was changed from 10 to 6. 
-	The data first codes the old value 10 on 32 bits in little endian. 
-	Then it codes the new value in the same way. \\
+	0x01  & AUTHORIZATION\_STATUS\_UPDATED \\
+	0x02  & DISCRIMINATOR\_UPDATED? \\
+	0x03  & BADGE\_UPDATED \\
+	0x04  & CONFIGURATION\_UPDATED \\
+	0x06  & FAULT (Error?) \\
+           x & UNKNOWN\\
 \end{longtable}
 
-\subsubsection{Metrics operations}
+The following sections describe the detailed format per eventType.
+
+\subparagraph{EventType AUTHORIZATION\_STATUS\_UPDATED}
+\label{eventType_AUTHORIZATION_STATUS_UPDATED}
+
+For the eventType AUTHORIZATION\_STATUS\_UPDATED, the data is structured as shown in tables \ref{table.94} and  \ref{table.80}.
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{AUTHORIZATION\_STATUS\_UPDATED data format overview}
+	\label{table.94}\\  %<---- Problem
+	\hline
+	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+	\hline
+	NEW\_AUTH\_STATUS & 
+	\multicolumn{11}{|l|}{data} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}[]{llllp{7cm}}
+	\caption{AUTHORIZATION\_STATUS\_UPDATED data format detail}
+	\label{table.80}
+	\tabularnewline
+	\toprule\noalign{}
+	Offset & Length & Name    & Type     & Description   \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	Offset & Length & Name      & Type       & Description                                \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0      & 1      & NEW\_AUTH\_STATUS & byte   &  New AUTHORIZATION\_STATUS value.
+	It has a coding based on the coding in tables \ref{table.51} and \ref{table.52}, but not exactly equal.
+	See table \ref{table.81}. \\
+	1      & 11     & data      & byte{[}{]} & Only used when AUTHORIZATION\_STATUS equals AUTHORIZED (0x02), in which case it is the UID of the badge (including length byte).	\\
+\end{longtable}
+
+
+\begin{longtable}[]{@{}ll@{}}
+	\caption{NEW\_ AUTH\_STATUS values}
+	\label{table.81}
+	\tabularnewline
+	\toprule\noalign{}
+	new value & Description    \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	new value & Description    \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+        0x02  & AUTHORIZED \\
+	0x08  &  DEFAULT (RFU1) \\
+	0x10  &  PAUSED? \\
+	0x20  & MAX \\
+	0x40  & ECO \\
+	0x80  & Charging STOPPED (RFU2)\\
+           x & UNKNOWN\\
+\end{longtable}
+
+Table \ref{table.88} shows some examples
+
+\begin{longtable}[]{llp{2.5cm}lp{5cm}}
+	\caption{Example AUTHORIZATION\_STATUS coding}
+	\label{table.88}
+	\tabularnewline
+	\toprule\noalign{}
+	eventType & unk1 & \tiny AUTHORIZATION\_\ STATUS & data                                  & Description      \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	eventType & unk1 &  \tiny AUTHORIZATION\_\ STATUS & data                                  & Description      \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x01 & 0x01 & 0x02 & \footnotesize 0x070497db82126880000000 &              
+	Authorized access with a badge with 7-byte UID 0x0497db82126880 \\
+	0x01 & 0x01 & 0x40 & \footnotesize 0x0000000000000000000000 & Switched to ECO charging \\
+\end{longtable}
+
+\subparagraph{EventType DISCRIMINATOR\_UPDATED}
+\label{eventType_DISCRIMINATOR_UPDATED}
+
+For the eventType DISCRIMINATOR\_UPDATED, the data is structured as shown in tables \ref{table.95} and \ref{table.82}.
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{DISCRIMINATOR\_UPDATED data format overview}
+	\label{table.95}\\  %<---- Problem
+	\hline
+	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+	\hline
+	oldDiscriminator & newDiscriminator &
+	\multicolumn{10}{|l|}{RFU} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}[]{llllp{7cm}}
+	\caption{DISCRIMINATOR\_UPDATED data format detail}
+	\label{table.82}
+	\tabularnewline
+	\toprule\noalign{}
+	Offset & Length & Name    & Type     & Description   \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	Offset & Length & Name      & Type       & Description                                \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0      & 1      & oldDiscriminator & byte   &  Old Discriminator value  coded according to table \ref{table.83}   \\
+	1      & 1      & newDiscriminator & byte   &  New Discriminator value  coded according to table \ref{table.83}  \\
+	1      & 10     & RFU      & byte{[}{]} & Not used	\\
+\end{longtable}
+
+
+\begin{longtable}[]{@{}ll@{}}
+	\caption{Old and new DISCRIMINATOR values}
+	\label{table.83}
+	\tabularnewline
+	\toprule\noalign{}
+	new value & Description    \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	new value & Description    \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x00  &  STOPPED \\
+	0x01  &  STARTED \\
+	0x02  & CHARGING \\
+           x & UNKNOWN\\
+\end{longtable}
+
+Table \ref{table.89} shows some examples.
+
+\begin{longtable}[]{lllllp{4cm}}
+	\caption{Example DISCRIMINATOR coding}
+	\label{table.89}
+	\tabularnewline
+	\toprule\noalign{}
+	eventType & unk1 & oldDiscriminator &  newDiscriminator & RFU                                 & Description      \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	eventType & unk1 & oldDiscriminator &  newDiscriminator & RFU                                  & Description      \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x02 & 0x01 & 0x01 & 0x02 &  \footnotesize 0x0000000000000000000 & Discriminator changed from STARTED to CHARGING    \\
+\end{longtable}
+
+\subparagraph{EventType BADGE\_UPDATED}
+\label{eventType_BADGE_UPDATED}
+
+For the eventType BADGE\_UPDATED, the data is structured as shown in tables \ref{table.96} and \ref{table.84}.
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{BADGE\_UPDATED  data format overview}
+	\label{table.96}\\  %<---- Problem
+	\hline
+	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+	\hline
+	badgeOperation & 
+	\multicolumn{11}{|l|}{UID} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}[]{llllp{7cm}}
+	\caption{BADGE\_UPDATED data format detail}
+	\label{table.84}
+	\tabularnewline
+	\toprule\noalign{}
+	Offset & Length & Name    & Type     & Description   \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	Offset & Length & Name      & Type       & Description                                \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0      & 1      &  badgeOperation & byte   &  The badge operation according to table \ref{table.85}     \\
+	1      & 11     & UID     & byte{[}{]} & The UID of the badge including its length as in section \secref{badge_operations}, padded with 0x00	\\
+\end{longtable}
+
+\begin{longtable}[]{@{}ll@{}}
+	\caption{badgeOperation values}
+	\label{table.85}
+	\tabularnewline
+	\toprule\noalign{}
+	badgeOperation & Description    \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	badgeOperation & Description    \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x01  &  Badge added in default charging mode \\
+	0x02  &  Badge added in MAX charging mode \\
+	0x04  & Badge deleted \\
+           x & UNKNOWN\\
+\end{longtable}
+
+Table \ref{table.90} shows some examples.
+
+\begin{longtable}[]{llp{2.5cm}lp{5cm}}
+	\caption{Example BADGE event coding}
+	\label{table.90}
+	\tabularnewline
+	\toprule\noalign{}
+	eventType & unk1 & badgeOperation & UID                                 & Description      \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	eventType & unk1 &  badgeOperation & UID                                  & Description      \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x03 & 0x01 & 0x02 & \footnotesize 0x071dec1a02010003000000 & Added badge with 7-byte UID 0x1dec1a02010003000000 for MAX charging   \\
+	0x03 & 0x01 & 0x04 & \footnotesize 0x071dec1a02010003000000 & Deleted badge with 7-byte UID 0x1dec1a02010003000000    \\
+\end{longtable}
+
+\subparagraph{EventType CONFIGURATION\_UPDATED}
+\label{eventType_CONFIGURATION_UPDATED}
+
+For every change to the configuraton (see section \secref{config_operations}) an event with eventType CONFIGURATION\_UPDATED is generated. Its data is structured as shown in tables \ref{table.97} and \ref{table.86}.
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{CONFIGURATION\_UPDATED  data format overview}
+	\label{table.97}\\  %<---- Problem
+	\hline
+	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\
+	\hline
+	configField & 
+	\multicolumn{4}{|l|}{oldValue} &
+	\multicolumn{4}{|l|}{newValue} &
+	\multicolumn{3}{|l|}{RFU} \\
+	\hline
+\end{longtable}
+
+
+\begin{longtable}[]{llllp{7cm}}
+	\caption{CONFIGURATION\_UPDATED data format detail}
+	\label{table.86}
+	\tabularnewline
+	\toprule\noalign{}
+	Offset & Length & Name    & Type     & Description   \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	Offset & Length & Name      & Type       & Description                                \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0      & 1      &  configField & byte   &  The updated configuration field according to table \ref{table.87}     \\
+	1      & 4     & oldValue    & int32 & The old value of the configuration field \\
+	5      & 4     & newValue    & int32 & The new value of the configuration field \\
+	9      & 3     & RFU & byte{[}{]} & Not used.
+\end{longtable}
+
+\begin{longtable}[]{@{}ll@{}}
+	\caption{Configuration field numbers}
+	\label{table.87}
+	\tabularnewline
+	\toprule\noalign{}
+	configField & Description    \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	configField & Description    \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x01  &  The \secref{config_1_0_format} field \emph{mode} \\
+	0x02  &  The \secref{config_1_0_format} field \emph{maxGrid}  \\
+	0x03  & The \secref{config_1_0_format} field \emph{safe}  \\
+	0x04  & The \secref{config_1_0_format} field \emph{touWeekStart}  \\
+	0x05  & The \secref{config_1_0_format} field \emph{touWeekEnd}  \\
+	0x06  & The \secref{config_1_0_format} field \emph{touWeekendStart}  \\
+	0x07  & The \secref{config_1_0_format} field \emph{touWeekendEnd}  \\
+	0x08  & The \secref{config_1_1_format} field \emph{maxDevice}  \\
+	0x09  & The \secref{config_1_1_format} field \emph{networkType}  \\
+           x & UNKNOWN\\
+\end{longtable}
+
+Table \ref{table.91} shows some examples.
+
+\begin{longtable}[]{llllllp{5cm}}
+	\caption{Example CONFIGURATION event coding}
+	\label{table.91}
+	\tabularnewline
+	\toprule\noalign{}
+	eventType & unk1 & configField & oldValue & newValue    & RFU & Description      \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	eventType & unk1 & configFieldn & oldValue & newValue    & RFU &  Description      \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0x04 & 0x01 & 0x01 & 0x01000000 & 0x04000000 & 0x000000 & Changed \emph{mode} from 1 (MAX\_PRIVATE) to 4 (ECO\_OPEN)\\
+	0x04 & 0x01 & 0x08 & 0x20000000 & 0x1D000000 & 0x000000 & Changed \emph{maxDevice} from 32 to 29.\\
+\end{longtable}
+
+
+\subparagraph{EventType FAULT}
+\label{eventType_FAULT}
+
+For the eventType Fault, the coding is still unclear. 
+
+\begin{longtable}[]{llllp{2.7cm}p{5.8cm}}
+	\caption{Example FAULT coding}
+	\label{table.92}
+	\tabularnewline
+	\toprule\noalign{}
+	eventType & unk1 &  data                                  & Description      \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	eventType & unk1 & data                                   & Description      \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	\multirow{5}{*}{0x06} & \multirow{5}{*}{0x01} & 
+	\footnotesize 0x080900020000000000000000 &
+	\multirow{5}{5cm}{An error event. Details are coded in the data, but syntax unknown.}\\
+	& & \footnotesize 0x080900010000000000000000 \\
+	& & \footnotesize 0x080100030000000000000000 \\
+	& & \footnotesize 0x080100050000000000000000 \\
+	& & \footnotesize 0x080900040000000000000000 \\
+\end{longtable}
+
+\subsubsection{Metric operations}
 \label{metric_operations}
 
 This deals with Metrics\footnote{Which metrics?}.
 
-\paragraph{Metrics operation ids}
-\label{metrics_operation_ids}
+\paragraph{Metric operation ids}
+\label{metric_operation_ids}
 
-Table \ref{table.16} lists the \emph{Metrics Operation} id\textquotesingle s.
+Table \ref{table.16} lists the \emph{Metric Operation} id\textquotesingle s.
 
 \begin{longtable}[]{@{}ll@{}}
-	\caption{Metrics Operation ids}
+	\caption{Metric Operation ids}
 	\label{table.16}
 	\tabularnewline
 	\toprule\noalign{}
@@ -1384,13 +1729,13 @@ Table \ref{table.16} lists the \emph{Metrics Operation} id\textquotesingle s.
 
 These operations have no additional configuration data that is read or written.
 
-\paragraph{Metrics status}
-\label{metrics_status}
+\paragraph{Metric status}
+\label{metric_status}
 
-Possible Metrics \emph{status} values are shown in table \ref{table.17}.
+Possible Metric \emph{status} values are shown in table \ref{table.17}.
 
 \begin{longtable}[]{@{}ll@{}}
-	\caption{Metrics status codes}
+	\caption{Metric status codes}
 	\label{table.17}
 	\tabularnewline
 	\toprule\noalign{}
@@ -1407,15 +1752,15 @@ Possible Metrics \emph{status} values are shown in table \ref{table.17}.
 	read \\
 \end{longtable}
 
-\paragraph{Metrics list operation}
-\label{metrics_list_operation}
+\paragraph{Metric list operation}
+\label{metric_list_operation}
 
 \textbf{Generic Command}, \textbf{Generic Status} and \textbf{Generic
-Data} work together to load Metrics records from the device. The
+Data} work together to load Metric records from the device. The
 scenario is as shown in figure \ref{illustration.28}.
 
 \begin{figure}[H]
-	\caption{Metrics scenario}
+	\caption{Metric scenario}
 	\label{illustration.28}
 	\centering
 	\includegraphics[scale=0.5]{Metrics.pdf}
@@ -1426,7 +1771,7 @@ scenario is as shown in figure \ref{illustration.28}.
 	\item
 	      Client enables \textbf{Generic Status} notifications.
 	\item
-	      Client writes the \textbf{Generic 	Command}{[}Metrics:UPDATE\_STATUS(0x2002){]} 
+	      Client writes the \textbf{Generic 	Command}{[}Metric:UPDATE\_STATUS(0x2002){]} 
 	      for the first record.
 	\item
 	      Client is notified of a \textbf{Generic Status} change, containing the new status, 
@@ -1436,7 +1781,7 @@ scenario is as shown in figure \ref{illustration.28}.
 	\item
 	      Client reads the \textbf{Generic Data} obtaining the data of the record
 	\item
-	      Client writes the \textbf{Generic Command}{[}Metrics:NEXT(0x2001){]}
+	      Client writes the \textbf{Generic Command}{[}Metric:NEXT(0x2001){]}
 	      for the next record. 
 	      Note that probably this also indicates that the record is successfully stored by the Client, 
 	      indicating that the Server can delete the record. 
@@ -1457,10 +1802,10 @@ scenario is as shown in figure \ref{illustration.28}.
 The number of Metric records that can be stored by the \emph{Nexxtender Home} is limited. 
 The limit is 0x240 (576)
 If the limit is reached, it is expected that older records are overwritten.
-The Nexxtmove app does never read the Metrics records.
+The Nexxtmove app does never read the Metric records.
 
-The Nexxtender Home charger creates a new Metrics record every multiple of a quarter (hh:00, hh:15, HH:30, hh:45) quarter, so the  buffer is full after 6 days.
-every quarter
+The Nexxtender Home charger creates a new Metric record every multiple of a quarter (hh:00, hh:15, HH:30, hh:45) quarter, so the  buffer is full after 6 days.
+
 
 \paragraph{Generic Data format}
 \label{generic_data_format_1}
@@ -1468,7 +1813,7 @@ every quarter
 Returns 44 bytes related to an event. 
 The 44 bytes are structured as shown in tables \ref{table.77a},  \ref{table.77b} and \ref{table.76o}.
 
-Until now, no Metrics messages where seen in BLE traces.
+Until now, no Metric messages where seen in BLE traces.
 
 \begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
 	\caption{Generic Data data format overview, bytes 0 to 21}
@@ -1478,7 +1823,7 @@ Until now, no Metrics messages where seen in BLE traces.
 	& 17 & 18 & 19  & 20 & 21\\
 	\hline
 	\multicolumn{4}{|l|}{%
-	eventTime} & \multicolumn{18}{l|}{unknown} \\
+	metricTime} & \multicolumn{18}{l|}{unknown} \\
 	\hline
 \end{longtable}
 
@@ -1510,7 +1855,7 @@ Until now, no Metrics messages where seen in BLE traces.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0      & 4      & eventTime & uint32     & Time of the event                          \\
+	0      & 4      & metricTime & uint32     & Time of the metric; every multiple of a quarter (hh:00, hh:15, hh:30                          \\
 	4     & 38     & unknown & unknown &             \\
 	42     & 2      & crc16     & uint16     & CRC-16/MODBUS over previous 42 bytes       \\
 \end{longtable}
@@ -1885,8 +2230,7 @@ The data format for the \textbf{Generic Data} is shown in tables \ref{table.25} 
 	\endlastfoot
 	timestamp & 0:3   & Current time in UTC 
 	\href{https://en.wikipedia.org/wiki/Unix_time}{Unix Time}. 
-	4 byte unsigned integer in
-	\href{https://en.wikipedia.org/wiki/Endianness}{Little-endian} \\
+	4 byte unsigned integer \\
 \end{longtable}
 
 \paragraph{Time Get operation}
@@ -2615,7 +2959,7 @@ The 32 bytes are structured as shown in tables \ref{table.53a} , \ref{table.53b}
 	the installation of the charger, at the moment charging stops.
 	SessionStopEnergy-SessionStartEnergy is the amount of energy in Wh
 	consumed in this charging session. \\
-	28     & 2      & unknown4           & int16  & Always 0?                            \\
+	28     & 2      & unknown4           & int16  & Always 0x5000?                            \\
 	30     & 2      & crc16              & uint16 & CRC-16/MODBUS over previous 30 bytes \\
 \end{longtable}
 

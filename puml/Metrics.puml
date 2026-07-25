@@ -15,22 +15,22 @@ end box
 autonumber
 == Initiation ==
 GSM ->  Status: Enable notifications 
-GSM -> Command: Write [Metrics:UPDATE_STATUS(0x2002)] 
+GSM -> Command: Write [Metric:UPDATE_STATUS(0x2002)] 
 autonumber stop
 return error code
 autonumber resume
-GSM <<- Status: Notify [Metrics://nnn//~-- (0x2//nnn//--)]
+GSM <<- Status: Notify [Metric://nnn//~-- (0x2//nnn//--)]
 == Body ==
 loop until //nnn// == 0 
   GSM -> Data: Read data
   autonumber stop
   return data
   autonumber resume
-  GSM -> Command: Write [Metrics:NEXT(0x2001)] 
+  GSM -> Command: Write [Metric:NEXT(0x2001)] 
   autonumber stop
   return error code
   autonumber resume
-  GSM <<- Status: Notify [Metrics://nnn//~-- (0x2//nnn//--)]
+  GSM <<- Status: Notify [Metric://nnn//~-- (0x2//nnn//--)]
   GSM <<- Status: Notify (0x2//nnn//--)
 == Finish ==
 GSM ->  Status: Disable notifications
