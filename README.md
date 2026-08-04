@@ -3,7 +3,7 @@
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/issues)
 
 [![latex](https://img.shields.io/badge/-LaTeX-008080?style=for-the-badge&logo=latex)](https://www.latex-project.org/)
-[![graphviz dot](https://img.shields.io/badge/-Graphvizdot-008080?style=for-the-badge)](https://graphviz.org/)
+[![graphviz dot](https://img.shields.io/badge/-Graphviz%20dot-008080?style=for-the-badge)](https://graphviz.org/)
 [![PlantUML](https://img.shields.io/badge/-PlantUML-008080?style=for-the-badge)](https://plantuml.com/)
 
 [![stable](https://img.shields.io/badge/version-stable-green)](https://kotlinlang.org/docs/components-stability.html#stability-levels-explained)
@@ -27,8 +27,8 @@ with the charger.
 
 ## Already build pdf files
 
-The latest compiled version of the pdf is in the latest [action](https://github.com/FrankHJCuypers/nexxtender-charger-info/actions/workflows/build_pdf.yaml). The latest official version of the pdf is in [latest release](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases/latest).
-
+The latest compiled version of the pdf is in the latest [action](https://github.com/FrankHJCuypers/nexxtender-charger-info/actions/workflows/build_pdf.yaml). The latest official version of the pdf is in [latest release](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases/latest):
+[nexxtender.pdf](https://github.com/FrankHJCuypers/nexxtender-charger-info/releases/latest/download/nexxtender.pdf)
 
 ## Build the pdf
 The document is generated from LaTeX input files and diagrams made with PlantUML
