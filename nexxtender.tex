@@ -232,7 +232,7 @@ Version \gitdescribe \\[0.4cm]
 
 The authors of this document are not linked to Powerdale or any other company managing the Nexxtender ecosystem. 
 The information in this document is based on the study of the external behavior of the product;
-it is at partial, incomplete and unverified. 
+it is partial, incomplete and unverified. 
 No guarantees on its correctness can be given by the authors, so use it at your own risk.
 
 \section{Ecosystem Overview}
@@ -1806,44 +1806,70 @@ The limit is 0x240 (576)
 If the limit is reached, it is expected that older records are overwritten.
 The Nexxtmove app does never read the Metric records.
 
-The Nexxtender Home charger creates a new Metric record every multiple of a quarter (hh:00, hh:15, HH:30, hh:45) quarter, so the  buffer is full after 6 days.
+The Nexxtender Home charger creates a new Metric record every multiple of a quarter (hh:00, hh:15, hh:30, hh:45) quarter, so the  buffer is full after 6 days.
 
 
 \paragraph{Generic Data format}
 \label{generic_data_format_1}
 
-Returns 44 bytes related to an event. 
-The 44 bytes are structured as shown in tables \ref{table.77a},  \ref{table.77b} and \ref{table.76o}.
+Returns 44 bytes related to the metrics of a quarter. 
+The 44 bytes are structured as shown in tables \ref{table.77a},  \ref{table.77b},  \ref{table.77c} ,  \ref{table.77d}  and \ref{table.76o}.
 
 Until now, no Metric messages where seen in BLE traces.
 
 \begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-	\caption{Generic Data data format overview, bytes 0 to 21}
+	\caption{Generic Data data format overview, bytes 0 to 11}
 	\label{table.77a}\\  %<---- Problem
 	\hline
-	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 
-	& 17 & 18 & 19  & 20 & 21\\
+	0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10  & 11\\
 	\hline
-	\multicolumn{4}{|l|}{%
-	metricTime} & \multicolumn{18}{l|}{unknown} \\
+	\multicolumn{4}{|l|}{metricTime} & 
+        \multicolumn{2}{l|}{unknown1} & carCurrentMax & carCurrentMin & gridVoltage & unknown2 &
+        \multicolumn{2}{l|}{carVoltage}  \\
 	\hline
 \end{longtable}
 
 \begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
-	\caption{Generic Data data format overview, bytes 22 to 43}
+	\caption{Generic Data data format overview, bytes 12 to 23}
 	\label{table.77b}\\  %<---- Problem
 	\hline
-	22 & 23 & 24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & 36 & 37 & 38 
-	& 39 & 40 & 41  & 42 & 43\\
+       12 & 13 & 14 & 15 &16 & 17 & 18 & 19 & 20 & 21 & 22 & 23   \\
 	\hline
-	\multicolumn{20}{|l|}{unknown} & \multicolumn{2}{l|}{%
-	crc16}\\
+       iAvailableMax & iAvailableMin & temperature & unknown4 &
+	\multicolumn{4}{|l|}{carPowerMax} & 
+	\multicolumn{4}{|l|}{carPowerMin} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{Generic Data data format overview, bytes 24 to 39}
+	\label{table.77c}\\  %<---- Problem
+	\hline
+	24 & 25 & 26 & 27 & 28 & 29 & 30 & 31 &32 & 33 & 34 & 35 & 36 & 37 & 38 & 39 \\
+	\hline
+	\multicolumn{4}{|l|}{gridPowerMax} & 
+	\multicolumn{4}{|l|}{gridPowerMin} & 
+	\multicolumn{2}{|l|}{gridConsumed} & 
+	\multicolumn{2}{|l|}{unknown5} & 
+	\multicolumn{2}{|l|}{promilleMax} & 
+	\multicolumn{2}{|l|}{promilleMin} \\
+	\hline
+\end{longtable}
+
+\begin{longtable}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+	\caption{Generic Data data format overview, bytes 40 to 43}
+	\label{table.77d}\\  %<---- Problem
+	\hline
+        40 & 41  & 42 & 43\\
+	\hline
+	\multicolumn{2}{|l|}{unknown6} & 
+        \multicolumn{2}{l|}{crc16}\\
 	\hline
 \end{longtable}
 
 \hfill\break
 
-\begin{longtable}[]{@{}lllll@{}}
+\begin{longtable}[]{llllp{9cm}}
 	\caption{Generic Data data format detail}
 	\label{table.76o}\\  %<---- Problem
 	\tabularnewline
@@ -1857,10 +1883,52 @@ Until now, no Metric messages where seen in BLE traces.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0      & 4      & metricTime & uint32     & Time of the metric; every multiple of a quarter (hh:00, hh:15, hh:30                          \\
-	4     & 38     & unknown & unknown &             \\
+	0      & 4      & metricTime & uint32     & Time of the metric; every multiple of a quarter (hh:00, hh:15, hh:30, hh:45)     \\
+	4     & 2     & unknown1 & unknown &  Value is always 0x01:0x13   \\
+	6     & 1     & carCurrentMax & uint8 &  0x40 | Maximum car current (rounded)  \\
+	7     & 1     & carCurrentMin & uint8 &  0x40 | Minimum car current (rounded)  \\
+	8     & 1     & gridVoltage & uint8 &    Voltage on the grid side         \\
+	9     & 1     & unknown2 & uint8 &     Value is always 0x40     \\
+	10     & 1     & carVoltage & uint8 &    Voltage delivered to the car \\
+	11     & 1     & chargingStatus & uint &  Charging status according to table \ref{table.98}  \\
+	12     & 1     & iAvailableMax & uint8 &     Maximum value of iAvailable (see \secref{charging_advanced_data_0xdb}) in this quarter        \\
+	13     & 1     & iAvailableMin & uint8 &     Minimum value of iAvailable (see \secref{charging_advanced_data_0xdb}) in this quarter        \\
+	14     & 1     & temperature & uint8 &     Temperature (of the cpu?)  in \textcelsius      \\
+	15     & 1     & unknown4 & uint8 &   Value is always 0     \\
+	16     & 4     & carPowerMax & int32 &  Maximum value of carPower  (see \secref{charging_advanced_data_0xdb}) in this quarter \\
+	20     & 4     & carPowerMin & int32 &  Manimum value of carPower  (see \secref{charging_advanced_data_0xdb}) in this quarter   \\
+	24     & 4     & gridPowerMax & int32 &  Maximum value of gridPower  (see \secref{charging_advanced_data_0xdb}) in this quarter \\
+	28     & 4     & gridPowerMin & int32 &  Minimum value of gridPower  (see \secref{charging_advanced_data_0xdb}) in this quarter  \\
+	32     & 2     & gridConsumed & int16 &  Grid consumed, see \secref{charging_grid_data_0xd0}  \\
+	34     & 2     & unknown5 & unknown &  Value is always 0  \\
+	36     & 2     & promilleMax & int16 &  Some property's maximum value  expressed in  \textperthousand (biggest seen value is  0x3e8 which is 1000) \\
+	38     & 2     & promilleMin & int16 &  Some property's minimum value  expressed in  \textperthousand \\
+	40     & 2     & unknown6 & int16 &  Value is always 0 \\
 	42     & 2      & crc16     & uint16     & CRC-16/MODBUS over previous 42 bytes       \\
 \end{longtable}
+
+
+
+\begin{longtable}[]{@{}lll@{}}
+	\caption{chargingStatus coding}
+	\label{table.98}
+	\tabularnewline
+	\toprule\noalign{}
+	Value & Name     & Description              \\
+	\midrule\noalign{}
+	\endfirsthead
+	\toprule\noalign{}
+	Value & Name     & Description              \\
+	\midrule\noalign{}
+	\endhead
+	\bottomrule\noalign{}
+	\endlastfoot
+	0xC0  &  NOT CHARGING  &                          \\
+	0x40  & CHARGING &                          \\
+	x      & UNKNOWN  & Any other value: UNKNOWN  \\
+\end{longtable}
+\hfill\break
+
 
 \subsubsection{Badge operations}
 \label{badge_operations}
