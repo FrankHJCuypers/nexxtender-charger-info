@@ -2,7 +2,7 @@
 [![GitHub Discussions](https://img.shields.io/github/discussions/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/discussions)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/FrankHJCuypers/nexxtender-charger-info?style=for-the-badge&logo=github)](https://github.com/FrankHJCuypers/nexxtender-charger-info/issues)
 
-[![latex](https://img.shields.io/badge/-LaTeX-008080?style=for-the-badge&logo=latex)](https://www.latex-project.org/)
+[![latex](https://img.shields.io/badge/-LaTeX-008080?style=flat&logo=latex)](https://www.latex-project.org/)
 [![graphviz dot](https://img.shields.io/badge/-Graphviz%20dot-008080?style=for-the-badge)](https://graphviz.org/)
 [![PlantUML](https://img.shields.io/badge/-PlantUML-008080?style=for-the-badge)](https://plantuml.com/)
 
