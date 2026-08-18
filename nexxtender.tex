@@ -138,7 +138,7 @@ Version \gitdescribe \\[0.4cm]
 	      Section \secref{product_number_serial_number_pin_and_pairing} explains the Product Number, 
 	      Serial Number and their relation with the PIN.
 	\item
-	      Section \secref{advertisement_and_scanning} explain the BLE concept of advertisement and scanning.
+	      Section \secref{advertisement_and_scanning} explains the BLE concept of advertisement and scanning.
 	\item
 	      Section \secref{ble_services_overview} details the BLE services provided by the Nexxtender
 	      Charger to the Nexxtmove app.
@@ -1288,7 +1288,7 @@ If the limit is reached, it is expected that older records are overwritten.
 \paragraph{Generic Data format}
 \label{generic_data_format}
 
-\textbf{Generic Data} returns a record or 20 bytes per event. 
+\textbf{Generic Data} returns a record of 20 bytes per event. 
 Events can happen anytime, 
 not only during the start/stop time frame of a \secref{cdr_characteristics}.
 The 20 bytes are structured as shown in tables \ref{table.61} and \ref{table.62}.
@@ -1388,7 +1388,7 @@ For the eventType AUTHORIZATION\_STATUS\_UPDATED, the data is structured as show
 	0      & 1      & NEW\_AUTH\_STATUS & byte   &  New AUTHORIZATION\_STATUS value.
 	It has a coding based on the coding in tables \ref{table.51} and \ref{table.52}, but not exactly equal.
 	See table \ref{table.81}. \\
-	1      & 11     & data      & byte{[}{]} & Only used when AUTHORIZATION\_STATUS equals AUTHORIZED (0x02), in which case it is the UID of the badge (including length byte).	\\
+	1      & 11     & data      & byte{[}{]} & Only used when AUTHORIZATION\_STATUS equals AUTHORIZED (0x02), in which case it is the UID of the badge (including leading length byte).	\\
 \end{longtable}
 
 
@@ -1417,16 +1417,16 @@ For the eventType AUTHORIZATION\_STATUS\_UPDATED, the data is structured as show
 
 Table \ref{table.88} shows some examples
 
-\begin{longtable}[]{llp{2.5cm}lp{5cm}}
+\begin{longtable}[]{llllp{5cm}}
 	\caption{Example AUTHORIZATION\_STATUS coding}
 	\label{table.88}
 	\tabularnewline
 	\toprule\noalign{}
-	eventType & unk1 & \tiny AUTHORIZATION\_\ STATUS & data                                  & Description      \\
+	eventType & unk1 & NEW\_AUTH\_STATUS & data                                  & Description      \\
 	\midrule\noalign{}
 	\endfirsthead
 	\toprule\noalign{}
-	eventType & unk1 &  \tiny AUTHORIZATION\_\ STATUS & data                                  & Description      \\
+	eventType & unk1 &  NEW\_AUTH\_STATUS & data                                  & Description      \\
 	\midrule\noalign{}
 	\endhead
 	\bottomrule\noalign{}
@@ -2847,6 +2847,8 @@ The expected success scenario is as shown in figure \ref{illustration.6}.
 \subsection{CDR characteristics}
 \label{cdr_characteristics}
 
+The charger keeps track of charging sessions.
+Each charging session results in 1 \emph{CDR} record in the charger, which can be downloaded with the \emph{CDR} service.
 Table \ref{table.37} shows which characteristics of the \emph{CDR} service (also known as
 \emph{Transaction Service}) are used.
 
@@ -2935,8 +2937,8 @@ Table \ref{table.55} lists the \emph{CDR Command} operation id\textquotesingle s
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0x01         & Read next record? Probably also means that the previous record 
-	read from \textbf{CDR Record} can be deleted from the Server. \\
+	0x01         & Read next record. Also means that the previous record 
+	read from \textbf{CDR Record} is deleted from the Server. \\
 	others?      &                                                                \\
 \end{longtable}
 
@@ -3036,6 +3038,7 @@ The 32 bytes are structured as shown in tables \ref{table.53a} , \ref{table.53b}
 \subsection{CCDT characteristics}
 \label{ccdt_characteristics}
 
+The charger keeps track of events linked to a \emph{CDR} session and generates an \emph{CCDT} record for each of them.
 Table \ref{table.38} shows wich characteristics of the \emph{CCDT} service are used.
 
 \textbf{Note}: If the charger is an \emph{Nexxtender Home}, 
@@ -3128,8 +3131,8 @@ id\textquotesingle s.
 	\endhead
 	\bottomrule\noalign{}
 	\endlastfoot
-	0x01         & Read next record? Probably also means that the previous record 
-	read from \textbf{CCDT Record} can be deleted from the Server. \\
+	0x01         & Read next record. Also means that the previous record 
+	read from \textbf{CCDT Record} is deleted from the Server. \\
 	others?      &                                                                \\
 \end{longtable}
 
@@ -3201,11 +3204,11 @@ The 16 bytes are structured as shown in tables \ref{table.59} and \ref{table.60}
 	10     & 1      & ccdtType      & byte   & The type of the event according to table 
 	\secref{table.64}.
 	quarterEnergy, L1, L2 and L3 are 0 and eventEnergy does no longer
-	increase for the events 0x21, 0x42, 0x60. \\
+	increase for the ccdtTypes 0x21, 0x42, 0x60. \\
 	11     & 1      & L1            & byte   & Car phase L1 current in A                \\
 	12     & 1      & L2            & byte   & Car phase L2 current in A                \\
 	13     & 1      & L3            & byte   & Car phase L3 current in A                \\
-	14     & 2      & crc16         & uint16 & CRC-16/MODBUS over previous 13 bytes     \\
+	14     & 2      & crc16         & uint16 & CRC-16/MODBUS over previous 14 bytes     \\
 \end{longtable}
 
 \hfill\break
@@ -3244,6 +3247,7 @@ The 16 bytes are structured as shown in tables \ref{table.59} and \ref{table.60}
 \label{firmware_characteristics}
 
 Table \ref{table.39} shows the characteristics of the \emph{Firmware} service that are used.
+They can be used to change the firmware of the charger. 
 
 \textbf{Note}: If the charger is an \emph{Nexxtender Home}, 
 these characteristics are send under the Generic (C1) service. 
@@ -3520,6 +3524,7 @@ The bytes are structured as shown in table \ref{table.73}.
 \subsection{Charging characteristics}
 \label{charging_characteristics}
 
+The real-time charging data is maintained by the charger and can be read with these characteristics.
 Table \ref{table.40} shows the characteristics of the \emph{Charging} service that are used.
 
 \textbf{Note}: If the charger is an \emph{Nexxtender Home}, 
