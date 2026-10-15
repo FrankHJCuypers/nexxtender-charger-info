@@ -2818,6 +2818,20 @@ The expected success scenario is as shown in figure \ref{illustration.3}.
 	      This is either the \secref{config_1_0_format} or \secref{config_1_1_format}.
 \end{enumerate}
 
+But analysis of the GATT messages between a Client and the Nexttender Home charger have shown that the Nexxtender Home charger always sends the 
+Config:POPPED(0x5003) notification in step 2 twice immediately after each other.
+This is shown in  figure \ref{illustration.32}. 
+
+\begin{figure}[H]
+	\caption{Config Get Operation with double notification}
+	\label{illustration.32}
+	\centering
+	\includegraphics[scale=0.5]{GetConfigSuccessDoubleNotification.pdf}
+\end{figure}
+
+
+The client must make sure to handle this correctly.
+
 \paragraph{Config CBOR Get	operation}
 \label{config_cbor_get_operation}
 
